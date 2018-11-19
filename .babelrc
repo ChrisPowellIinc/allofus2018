@@ -1,0 +1,9 @@
+{
+    "presets": ["env", "flow"],
+    "plugins": [
+        ["transform-react-jsx", {
+            "pragma": "m"
+        }],
+        "transform-es2015-destructuring"
+    ]
+}
