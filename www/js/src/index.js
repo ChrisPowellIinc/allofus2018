@@ -17,10 +17,13 @@
  * under the License.
  */
 import m from "mithril";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 var app = {
   // Application Constructor
   initialize() {
+    console.log("Initializing the application");
     document.addEventListener(
       "deviceready",
       this.onDeviceReady.bind(this),
@@ -34,11 +37,24 @@ var app = {
   // 'pause', 'resume', etc.
   onDeviceReady() {
     this.receivedEvent("deviceready");
-    console.log("Hello there we are working now...");
     var root = document.getElementById("app-container");
 
     m.route(root, "/", {
-      "/": { view: vnode => <div class=""> Hello There </div> },
+      "/": {
+        view: vnode => <div>
+          <h1> Login here </h1>
+          <span>
+            <div>
+              <input class="text-input text-input--material" placeholder="Username" type="text" required/>
+            </div>
+            <br/>
+            <div>
+              <input class="text-input text-input--material" placeholder="Password" type="password" required/>
+            </div>
+          </span>
+        <ons-button onclick="ons.notification.alert('Hello people!!')"> Login </ons-button>
+        </div>
+        },
       "/hello": {
         view: vnode => <div class=""> Hello There Willy doo </div>
       }
@@ -47,14 +63,8 @@ var app = {
 
   // Update DOM on a Received Event
   receivedEvent(id) {
-    var parentElement = document.getElementById(id);
-    var listeningElement = parentElement.querySelector(".listening");
-    var receivedElement = parentElement.querySelector(".received");
 
-    listeningElement.setAttribute("style", "display:none;");
-    receivedElement.setAttribute("style", "display:block;");
-
-    console.log(`Received Event: ${id}`);
+    console.log(`Device is ready: ${id}`);
   }
 };
 
