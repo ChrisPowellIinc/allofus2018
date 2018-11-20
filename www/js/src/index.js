@@ -17,8 +17,16 @@
  * under the License.
  */
 import m from "mithril";
+// Bootstrap
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+// onsenui
+import "onsenui";
+import "onsenui/css/onsenui.css";
+import "onsenui/css/onsen-css-components.css";
+
+import Login from "./components/login";
+import Home from "./components/home";
 
 var app = {
   // Application Constructor
@@ -40,30 +48,13 @@ var app = {
     var root = document.getElementById("app-container");
 
     m.route(root, "/", {
-      "/": {
-        view: vnode => <div>
-          <h1> Login here </h1>
-          <span>
-            <div>
-              <input class="text-input text-input--material" placeholder="Username" type="text" required/>
-            </div>
-            <br/>
-            <div>
-              <input class="text-input text-input--material" placeholder="Password" type="password" required/>
-            </div>
-          </span>
-        <ons-button onclick="ons.notification.alert('Hello people!!')"> Login </ons-button>
-        </div>
-        },
-      "/hello": {
-        view: vnode => <div class=""> Hello There Willy doo </div>
-      }
+      "/": Home,
+      "/login": Login
     });
   },
 
   // Update DOM on a Received Event
   receivedEvent(id) {
-
     console.log(`Device is ready: ${id}`);
   }
 };
