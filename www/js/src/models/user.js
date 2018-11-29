@@ -1,38 +1,94 @@
-import m from "mithril";
-import request from "services/request";
+import * as Joi from "joi-browser";
 
-const UserModel = {
-  User: {},
-  GetUserfromStorage() {
-    return localforage
-      .getItem("user")
-      .then(user => {
-        if (!isEmptyObject(user)) {
-          UserModel.User = user;
-
-          m.redraw();
-          return;
-        }
-        UserModel.User = {};
-        m.redraw();
-      })
-      .catch(error => error);
-  },
-  Login: () =>
-    request({
-      url: "/login",
-      method: "POST",
-      data: {
-        username: UserModel.User.username,
-        password: UserModel.User.username
+export const LoginSchema = Joi.object().keys({
+  username: Joi.string()
+    .trim()
+    .required()
+    .label("Username")
+    .options({
+      language: {
+        key: "{{!label}} "
       }
     }),
-  Logout() {
-    localforage.removeItem("user");
-    UserModel.User = {};
-    deleteCookie("jwt");
-    window.location.assign("/");
-  }
-};
+  password: Joi.string()
+    .required()
+    .label("Password")
+    .options({
+      language: {
+        key: "{{!label}} "
+      }
+    })
+});
 
-export default UserModel;
+export const UserSchema = Joi.object().keys({
+  first_name: Joi.string()
+    .trim()
+    .required()
+    .label("First Name")
+    .options({
+      language: {
+        key: "{{!label}} "
+      }
+    }),
+  last_name: Joi.string()
+    .trim()
+    .required()
+    .label("Last Name")
+    .options({
+      language: {
+        key: "{{!label}} "
+      }
+    }),
+  email: Joi.string()
+    .trim()
+    .email()
+    .required()
+    .label("Email")
+    .options({
+      language: {
+        key: "{{!label}} "
+      }
+    }),
+  username: Joi.string()
+    .trim()
+    .alphanum()
+    .min(3)
+    .max(30)
+    .required()
+    .label("Username")
+    .options({
+      language: {
+        key: "{{!label}} "
+      }
+    }),
+  password: Joi.string()
+    .label("Password")
+    .min(6)
+    .required()
+    .options({
+      language: {
+        key: "{{!label}} "
+      }
+    }),
+  confirm_password: Joi.string()
+    .label("Password Confirmation")
+    .min(6)
+    .required()
+    .valid(Joi.ref("password"))
+    .options({
+      language: {
+        any: {
+          allowOnly: "!!Passwords do not match"
+        },
+        key: "{{!label}} "
+      }
+    })
+});
+
+export const User = {
+  first_name: "",
+  last_name: "",
+  email: "",
+  username: "",
+  password: ""
+};
