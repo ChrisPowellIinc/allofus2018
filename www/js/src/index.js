@@ -48,8 +48,19 @@ var app = {
     var root = document.getElementById("app-container");
 
     m.route(root, "/", {
-      "/": Home,
-      "/login": Login
+      "/": {
+        onmatch: () =>
+          new Promise(resolve => {
+            resolve(Home);
+          })
+      },
+      "/login": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(Login);
+          })
+      }
     });
   },
 
