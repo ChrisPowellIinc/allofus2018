@@ -26,6 +26,7 @@ import "onsenui/css/onsenui.css";
 import "onsenui/css/onsen-css-components.css";
 
 import Login from "./components/login";
+import Register from "./components/register";
 import Home from "./components/home";
 
 var app = {
@@ -59,6 +60,13 @@ var app = {
           new Promise(resolve => {
             console.log("will check for login here...");
             resolve(Login);
+          })
+      },
+      "/register": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(Register);
           })
       }
     });
