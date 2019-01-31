@@ -98,15 +98,11 @@ var Login = {
       </div>
       <div class="bottom-bar">
         <div class="bottom-bar__line-height" style="text-align:center">
-          Dont have an account?
-          <span
-            class="toolbar-button"
-            type="submit"
-            onclick={() => {
-              m.route.set("/register");
-            }}
-          >
-            Signup
+          <span class="toolbar-button text-info">
+            Dont have an account?{" "}
+            <a href="/register" oncreate={m.route.link}>
+              Signup
+            </a>
           </span>
         </div>
       </div>

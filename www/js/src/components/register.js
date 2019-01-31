@@ -167,15 +167,11 @@ var Register = {
       </div>
       <div class="bottom-bar">
         <div class="bottom-bar__line-height" style="text-align:center">
-          Already have an account?
-          <span
-            class="toolbar-button"
-            type="submit"
-            onclick={() => {
-              m.route.set("/login");
-            }}
-          >
-            Login
+          <span class="toolbar-button text-info">
+            Already have an account?{" "}
+            <a href="/login" oncreate={m.route.link}>
+              Login
+            </a>
           </span>
         </div>
       </div>
