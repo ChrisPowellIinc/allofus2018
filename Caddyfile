@@ -1,0 +1,22 @@
+:8080 {
+    root ./platforms/browser/www
+
+    header / {
+		Access-Control-Allow-Origin  *
+	}
+
+    # proxy /api localhost:5000 { }
+
+	# proxy /swaggerui localhost:5000 { }
+
+    # on startup ./startapp.sh
+
+	#git git@github.com:Investliftng/crsg-payroll.git {
+    #    repo git@github.com:Investliftng/crsg-payroll.git
+    #    branch deployment # when master has been merged i'll change this to master branch
+    #    key ~/.ssh/id_rsa #assuming the ssh key which has been added to github is here
+    #    interval 600 #interval to check for updates  600 = 10mins
+    #    path ../../ #Path it should pull changes to. Since the root is public, and not the actual repo root. 
+    #    then ./start.sh #xxx is command to run everytime an update is pulled from github
+    #}
+}
