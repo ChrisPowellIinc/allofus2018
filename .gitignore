@@ -3,3 +3,4 @@ platforms
 plugins
 .env
 dev.sh
+.vscode
