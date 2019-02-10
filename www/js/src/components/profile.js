@@ -8,7 +8,7 @@ var Profile = {
     if (e.target.files[0]) {
       ProfileService.UploadImage(e.target.files[0]).then(resp => {
         // handleResponse(resp);
-        console.log(resp.data.imageurl);
+        // console.log(resp.data.imageurl);
         Auth.user.image = resp.data.imageurl;
         m.redraw();
       }).catch(err => {
