@@ -17,6 +17,9 @@
  * under the License.
  */
 import m from "mithril";
+
+import "font-awesome/css/font-awesome.css";
+
 // Bootstrap
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -28,6 +31,7 @@ import "onsenui/css/onsen-css-components.css";
 import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home";
+import Profile from "./components/profile";
 
 var app = {
   // Application Constructor
@@ -67,6 +71,13 @@ var app = {
           new Promise(resolve => {
             console.log("will check for login here...");
             resolve(Register);
+          })
+      },
+      "/profile": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(Profile);
           })
       }
     });
