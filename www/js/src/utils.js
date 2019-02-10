@@ -1,3 +1,4 @@
+import ons from "onsenui";
 /**
  * Formats money value
  * @param {string|number} value
@@ -25,9 +26,9 @@ export const formatDollar = value => `$${formatMoney(value)}`;
  */
 export const handleResponse = resp => {
   if (resp.status === 200 || resp.status === 201) {
-    toast.success(resp.message);
+    ons.notification.alert(resp.message);
   } else {
-    toast.info(resp.message);
+    ons.notification.alert(resp.message);
   }
 };
 
