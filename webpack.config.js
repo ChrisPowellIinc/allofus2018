@@ -1,6 +1,7 @@
 // var webpack = require("webpack");
 // var CopyWebpackPlugin = require("copy-webpack-plugin");
 var path = require("path");
+const Dotenv = require("dotenv-webpack");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // const BabiliPlugin = require("babili-webpack-plugin");
 // const glob = require("glob");
@@ -21,8 +22,9 @@ module.exports = {
   // devtool: 'eval-source-map',
   devtool: "source-map",
   plugins: [
-    new ExtractTextPlugin("css/main.min.css")
+    new ExtractTextPlugin("css/main.min.css"),
     // new OptimizeCssAssetsPlugin(),
+    new Dotenv()
 
     // new BabiliPlugin(),
     // new workboxPlugin({
@@ -100,7 +102,14 @@ module.exports = {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallback: "style-loader",
-          use: ["css-loader"]
+          use: [{
+            loader: "css-loader",
+            options: {
+              url: false,
+              minimize: true,
+              sourceMap: true,
+            }
+          }]
         })
       },
       {
