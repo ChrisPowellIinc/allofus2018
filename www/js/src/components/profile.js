@@ -5,11 +5,15 @@ import Auth from "services/auth";
 //import { ons-list-header, ons-list-item } from "onsenui";
 
 var Profile = {
+  oncreate: () => {
+    Auth.getUserFromStorage().then(res => {
+      m.redraw();
+    });
+  },
   UploadImage: e => {
     if (e.target.files[0]) {
       ProfileService.UploadImage(e.target.files[0]).then(resp => {
         // handleResponse(resp);
-        // console.log(resp.data.imageurl);
         Auth.user.image = resp.data.imageurl;
         m.redraw();
       }).catch(err => {
@@ -43,7 +47,7 @@ var Profile = {
         </div>
           <ons-list>
             <ons-list-header>Profile Information</ons-list-header>
-            <ons-list-item tappable>Name: {Auth.user.firs_name + " " + Auth.user.last_name}</ons-list-item>
+            <ons-list-item tappable>Name: {Auth.user.first_name + " " + Auth.user.last_name}</ons-list-item>
         
           </ons-list>
         </ons-page>
