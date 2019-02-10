@@ -6,7 +6,7 @@ var Profile = {
     var formData = new FormData();
     formData.append("profile_picture", image);
 
-    request({
+    return request({
       url: `${process.env.API_URL}/user/upload`,
       method: "POST",
       data: formData

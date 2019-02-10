@@ -60,7 +60,7 @@ const Auth = {
     return m
       .request({
         method: "POST",
-        url: "/v1/api/auth/register",
+        url: `${process.env.API_URL}/auth/register`,
         data
       })
       .then(res => {
@@ -102,7 +102,7 @@ const Auth = {
     return m
       .request({
         method: "POST",
-        url: "/v1/api/auth/login",
+        url: `${process.env.API_URL}/auth/login`,
         data
       })
       .then(res => {
@@ -110,6 +110,7 @@ const Auth = {
         if (res.status === 200) {
           localForage.setItem("user", res.data).then(user => {
             Auth.user = user;
+            ons.notification.alert(`Hello ${user.first_name}`);
             m.route.set("/");
           });
         }
