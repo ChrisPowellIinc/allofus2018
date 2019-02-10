@@ -1,11 +1,18 @@
 import m from "mithril";
 import ProfileService from "services/profile.js";
+import handleResponse from "utils";
+import Auth from "services/auth";
 
 var Profile = {
   UploadImage: e => {
-    
     if (e.target.files[0]) {
-      ProfileService.UploadImage(e.target.files[0]);
+      ProfileService.UploadImage(e.target.files[0]).then(resp => {
+        handleResponse(resp);
+        Auth.user.image = resp.data.imageurl;
+        m.redraw();
+      }).catch(err => {
+        handleResponse(err);
+      });
     }
   },
   view: vnode => (
@@ -13,7 +20,7 @@ var Profile = {
       <div class="p-3">
         <div class="b-2 text-center">
           <img
-            src="img/logo.png"
+            src={Auth.user.image}
             class="img image-responsive"
             alt="Profile"
             width="120"
