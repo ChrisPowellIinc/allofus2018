@@ -1836,12 +1836,12 @@ var Auth = {
       url: "http://127.0.0.1:3500/api/v1" + "/auth/login",
       data: data
     }).then(function (res) {
-      (0, _utils.handleResponse)(res);
+      // handleResponse(res);
       if (res.status === 200) {
         _localforage2.default.setItem("user", res.data).then(function (user) {
           Auth.user = user;
-          _onsenui2.default.notification.alert("Hello " + user.first_name);
-          _mithril2.default.route.set("/");
+          _onsenui2.default.notification.alert("Welcome " + user.first_name);
+          _mithril2.default.route.set("/profile");
         });
       }
     }).catch(function (err) {
@@ -69923,7 +69923,7 @@ var _auth2 = _interopRequireDefault(_auth);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//import { ons-list-header, ons-list-item } from "onsenui";
+// import { ons-list-header, ons-list-item } from "onsenui";
 
 var Profile = {
   oncreate: function oncreate() {
@@ -69967,15 +69967,20 @@ var Profile = {
           (0, _mithril2.default)(
             "div",
             { "class": "text-center" },
-            (0, _mithril2.default)("input", { "class": "d-none", id: "uploadimage", type: "file", name: "profile_image", onchange: function onchange(e) {
+            (0, _mithril2.default)("input", {
+              "class": "d-none",
+              id: "uploadimage",
+              type: "file",
+              name: "profile_image",
+              onchange: function onchange(e) {
                 Profile.UploadImage(e);
-              } }),
+              }
+            }),
             (0, _mithril2.default)(
               "label",
               { "for": "uploadimage", "class": "btn btn-sm btn-default" },
               (0, _mithril2.default)("i", { "class": "fa fa-images" }),
-              " ",
-              "Change image"
+              " Change image"
             )
           ),
           (0, _mithril2.default)(
@@ -70030,7 +70035,7 @@ var Profile = {
     );
   }
 };
-//import handleResponse from "utils";
+// import handleResponse from "utils";
 exports.default = Profile;
 
 /***/ }),
