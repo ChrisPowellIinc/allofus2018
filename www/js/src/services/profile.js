@@ -12,6 +12,6 @@ var Profile = {
       data: formData
     });
   }
-}
+};
 
 export default Profile;
