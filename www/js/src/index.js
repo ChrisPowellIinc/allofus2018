@@ -28,6 +28,8 @@ import "onsenui";
 import "onsenui/css/onsenui.css";
 import "onsenui/css/onsen-css-components.css";
 
+import "../../css/index.css";
+
 import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home";
