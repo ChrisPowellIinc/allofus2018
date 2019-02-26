@@ -2,6 +2,7 @@ import m from "mithril";
 import ProfileService from "services/profile.js";
 // import handleResponse from "utils";
 import Auth from "services/auth";
+import Footer from "components/homefooter";
 // import { ons-list-header, ons-list-item } from "onsenui";
 
 var Profile = {
@@ -59,34 +60,7 @@ var Profile = {
           </ons-list>
         </ons-page>
       </div>
-      <div class="bottom-bar">
-        <div class="row h-100">
-          <div class="col-3 text-center p-3">
-            {" "}
-            <span class="fa fa-home" />
-          </div>
-          <div class="col-3 text-center p-3">
-            {" "}
-            <span class="fa fa-video" />
-          </div>
-          <div class="col-3 text-center p-3">
-            {" "}
-            <span class="fa fa-envelope" />
-          </div>
-          <div class="col-3 text-center p-3">
-            {" "}
-            <span class="fa fa-user" />
-          </div>
-        </div>
-        {/* }<div class="bottom-bar__line-height" style="text-align:center">
-          <span class="toolbar-button text-info">
-            <button class="btn btn-sm">
-              <i class="fa fa-trash" />
-              Settings
-            </button>
-          </span>
-        </div> */}
-      </div>
+      <Footer />
     </section>
   )
 };
