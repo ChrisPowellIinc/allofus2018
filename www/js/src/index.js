@@ -32,6 +32,9 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home";
 import Profile from "./components/profile";
+import TimeLine from "./components/timeline";
+import Videos from "./components/videos";
+import Messages from "./components/messages";
 
 var app = {
   // Application Constructor
@@ -78,6 +81,27 @@ var app = {
           new Promise(resolve => {
             console.log("will check for login here...");
             resolve(Profile);
+          })
+      },
+      "/timeline": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(TimeLine);
+          })
+      },
+      "/videos": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(Videos);
+          })
+      },
+      "/messages": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(Messages);
           })
       }
     });
