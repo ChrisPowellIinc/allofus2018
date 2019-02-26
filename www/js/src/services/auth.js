@@ -32,7 +32,11 @@ const Auth = {
   getUserFromStorage: async () => {
     try {
       const user = await localForage.getItem("user");
-      Auth.user = user;
+      if (user) {
+        Auth.user = user;
+      } else {
+        Auth.user = User;
+      }
       return Promise.resolve(true);
     } catch (err) {
       Auth.logout();
