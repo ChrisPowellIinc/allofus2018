@@ -1,8 +1,10 @@
 import m from "mithril";
-// import izitoast from "izitoast";
 import Shell from "containers/shell";
+// import CCapture from "../../../node_modules/ccapture.js/src/CCapture.js";
+// import izitoast from "izitoast";
 import Modal from "./modal";
 import CreatePost from "./createpost";
+import Post from "./post";
 
 const posts = [
   {
@@ -30,6 +32,20 @@ const posts = [
 var TimeLine = {
   oncreate: vnode => {
     vnode.state.posts = posts;
+    Post.printMyName();
+    // var capturer = new CCapture({ format: "jpg" });
+    // capturer.start();
+    // setTimeout(() => {
+    //   capturer.stop();
+
+    //   // default save, will download automatically a file called {name}.extension (webm/gif/tar)
+    //   capturer.save();
+
+    //   // custom save, will get a blob in the callback
+    //   capturer.save(blob => {
+    //     console.log(blob);
+    //   });
+    // }, 5000);
     m.redraw();
     // m.request({
     //   url: "https://jsonplaceholder.typicode.com/posts",
@@ -61,40 +77,7 @@ var TimeLine = {
       <section class="p-2">
         <ul class="list list--material overflow-auto content-height">
           {vnode.state.posts &&
-            vnode.state.posts.map(post => (
-              <li class="list-item list-item--material border-bottom">
-                <div class="list-item__left list-item--material__left">
-                  <img
-                    class="list-item__thumbnail list-item--material__thumbnail"
-                    src={post.meme}
-                    alt="Cute kitten"
-                  />
-                </div>
-
-                <div class="list-item__center list-item--material__center">
-                  <div class="list-item__title list-item--material__title">
-                    Post number: {post.id}
-                  </div>
-                  <div class="list-item__subtitle list-item--material__subtitle">
-                    {post.description}
-                    <img
-                      class="w-100 rounded mt-2"
-                      height="200px"
-                      src="https://placekitten.com/g/300/200"
-                      alt="Cute kitten"
-                    />
-                    <div class="py-2">
-                      <ons-button modifier="quiet">
-                        <span class="fa fa-exclamation" />
-                      </ons-button>
-                      <button class="button mr-2">
-                        <span class="fa fa-share-alt" />
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
+            vnode.state.posts.map(post => <Post post={post} name="david" />)}
         </ul>
         <ons-fab
           data-toggle="modal"
