@@ -2,10 +2,10 @@ import m from "mithril";
 
 var Footer = {
   view: vnode => (
-    <div class="bottom-bar">
+    <ons-bottom-toolbar>
       <div class="row h-100">
         <div
-          class="col-3 text-center p-3"
+          class="col-2 text-center p-3"
           onclick={() => {
             m.route.set("/timeline");
           }}
@@ -14,7 +14,25 @@ var Footer = {
           <span class="fa fa-home" />
         </div>
         <div
-          class="col-3 text-center p-3"
+          class="col-2 text-center p-3"
+          onclick={() => {
+            m.route.set("/post");
+          }}
+        >
+          {" "}
+          <span class="fa fa-plus" />
+        </div>
+        <div
+          class="col-2 text-center p-3"
+          onclick={() => {
+            m.route.set("/videos");
+          }}
+        >
+          {" "}
+          <span class="fa fa-music" />
+        </div>
+        <div
+          class="col-2 text-center p-3"
           onclick={() => {
             m.route.set("/videos");
           }}
@@ -23,7 +41,7 @@ var Footer = {
           <span class="fa fa-video" />
         </div>
         <div
-          class="col-3 text-center p-3"
+          class="col-2 text-center p-3"
           onclick={() => {
             m.route.set("/messages");
           }}
@@ -32,7 +50,7 @@ var Footer = {
           <span class="fa fa-envelope" />
         </div>
         <div
-          class="col-3 text-center p-3"
+          class="col-2 text-center p-3"
           onclick={() => {
             m.route.set("/profile");
           }}
@@ -41,7 +59,7 @@ var Footer = {
           <span class="fa fa-user" />
         </div>
       </div>
-    </div>
+    </ons-bottom-toolbar>
   )
 };
 
