@@ -29,7 +29,7 @@ var Profile = {
     <section>
       <div class="p-3">
         <ons-page>
-          <div class="b-2 text-center">
+          <div class="b-2 text-center p-2">
             <img
               src={Auth.user.image || "img/logo.png"}
               class="img image-responsive"
