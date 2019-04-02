@@ -37,6 +37,7 @@ import Profile from "./components/profile";
 import TimeLine from "./components/timeline";
 import Videos from "./components/videos";
 import Messages from "./components/messages";
+import CreatePost from "./components/createpost";
 
 var app = {
   // Application Constructor
@@ -90,6 +91,13 @@ var app = {
           new Promise(resolve => {
             console.log("will check for login here...");
             resolve(TimeLine);
+          })
+      },
+      "/post": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(CreatePost);
           })
       },
       "/videos": {
