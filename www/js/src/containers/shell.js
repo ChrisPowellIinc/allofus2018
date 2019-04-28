@@ -6,9 +6,9 @@ var Shell = {
   view: vnode => {
     const { children } = vnode;
     return (
-      <section>
+      <section class="h-100">
         <Modal />
-        <section>{children}</section>
+        {children}
         <Footer />
       </section>
     );
