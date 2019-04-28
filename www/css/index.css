@@ -114,6 +114,10 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 } */
 
+#app-container {
+	height: 100%;
+}
+
 .content-height {
   /* WebKit */
   /* height: -webkit-calc(100vh - 44px); */
