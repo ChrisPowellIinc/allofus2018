@@ -32,6 +32,13 @@ var Home = {
           >
             SIGNUP
           </a>
+          <a
+            href="/profile"
+            oncreate={m.route.link}
+            class="button button--material w-100 mt-4 pointer"
+          >
+            PROFILE
+          </a>
         </div>
         {/* </div> */}
       </main>
