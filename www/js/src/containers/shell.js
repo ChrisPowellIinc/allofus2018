@@ -1,14 +1,17 @@
 import m from "mithril";
 import Footer from "components/homefooter";
+import Header from "components/homeheader";
+
 import Modal from "components/modal";
 
 var Shell = {
   view: vnode => {
     const { children } = vnode;
     return (
-      <section class="h-100">
+      <section>
+        <Header />
         <Modal />
-        {children}
+        <section>{children}</section>
         <Footer />
       </section>
     );
