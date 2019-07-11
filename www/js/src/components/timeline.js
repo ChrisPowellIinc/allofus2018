@@ -9,27 +9,41 @@ import Post from "./post";
 const posts = [
   {
     id: 1,
-    meme: "#!",
-    description: "Description goes here..."
+    meme: "https://randomuser.me/api/portraits/women/74.jpg",
+    description:
+      "    Search for them on YouTube –  ID: A36087 👀🤩😍🎊🎉 Youve been VRd, and we cant wait to show the World inside!  in VirtualReality! Use your phone or VR headset to see RealEstate & Business listings virtually at www.LUXVRTOURS.com! How do you use it? 🧐🤔😏 Rotate, tilt, and turn around with your device to change the perspective! Its that simple, welcome to the future! ",
+    postimage:
+      "https://luxvrtours.com/wp-content/uploads/2018/06/videotogif_2019.05.19_12.26.27.gif"
   },
   {
     id: 2,
-    meme: "#!",
-    description: "Description goes here..."
+    meme: "https://randomuser.me/api/portraits/women/79.jpg",
+    description: "Description goes here...",
+
+    postimage:
+      "https://luxvrtours.com/wp-content/uploads/2018/06/videotogif_2019.04.02_09.04.48.gif"
   },
   {
     id: 3,
-    meme: "#!",
-    description: "Description goes here..."
+    meme: "https://randomuser.me/api/portraits/women/71.jpg",
+    description: "Description goes here...",
+    postimage:
+      "https://luxvrtours.com/wp-content/uploads/2019/04/47693882_369578260495706_2448362123827963562_n.jpg"
   },
   {
     id: 4,
-    meme: "#!",
-    description: "Description goes here..."
+    meme: "https://randomuser.me/api/portraits/women/77.jpg",
+    description: "Description goes here...",
+    postimage:
+      "https://luxvrtours.com/wp-content/uploads/2019/04/47692144_355813028330488_5537805512013348493_n.jpg"
   }
 ];
 
 var TimeLine = {
+  headerblur: () => {
+    document.getElementById(`headertopbar`).className = "applyblur";
+  },
+
   oncreate: vnode => {
     vnode.state.posts = posts;
     Post.printMyName();
@@ -62,27 +76,30 @@ var TimeLine = {
     //     });
     //   });
   },
+
   openPost: () => {
     var modal = document.querySelector("ons-modal");
-    modal.addEventListener("preshow", () => {
-      Modal.content = CreatePost;
-    });
-    modal.addEventListener("posthide", () => {
-      Modal.content = {};
-    });
+    //  modal.addEventListener("preshow", () => {
+    Modal.content = CreatePost;
+    // });
+    // modal.addEventListener("posthide", () => {
+    //     Modal.content = {};
+    //  });
+
     modal.toggle({ animation: "fade" });
   },
   view: vnode => (
     <Shell>
-      <section class="p-2">
-        <ul class="list list--material overflow-auto content-height">
+      <section onclick={TimeLine.headerblur} class="post-displayx">
+        <ons-list class="list list--material overflow-auto content-height">
           {vnode.state.posts &&
             vnode.state.posts.map(post => <Post post={post} name="david" />)}
-        </ul>
+        </ons-list>
         <ons-fab
           data-toggle="modal"
           data-target="#exampleModal"
           class="mb-5"
+          style="display: none"
           position="bottom left"
           onclick={TimeLine.openPost}
         >

@@ -114,10 +114,6 @@ h1 {
     -webkit-animation:fade 3000ms infinite;
 } */
 
-#app-container {
-	height: 100%;
-}
-
 .content-height {
   /* WebKit */
   /* height: -webkit-calc(100vh - 44px); */
@@ -128,4 +124,758 @@ h1 {
   position: absolute;
   top: 0px;
   bottom: 44px;
+}
+ons-top-toolbar {
+  top: 0;
+    position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+  width: 100%;
+  background-color: #ffffffa8;
+  box-shadow: 0px 1px 2px #ccc;
+}
+.post-displayx {
+    padding: 0px !important;
+}
+.list-item--material {
+        padding: 0px !important;
+
+}
+.list-item--material__center, .list-item--material__left:empty {
+    padding-right: 0px;
+}
+.h-100x {
+    height: 100vw;
+}
+
+#block1 {
+    
+}
+
+
+#block2 {
+  
+}
+
+.memeytext2 {
+       font-family: Impact;
+    margin: 0px !important;
+    font-size: 26px;
+    color: #fff;
+    text-shadow: 0 1px 8px #000;
+    text-align: center;
+    line-height: 34px;
+    vertical-align: middle;
+    text-transform: uppercase;
+      bottom: 7vw;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #b6b6b6;
+    background-size: cover;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #000;
+    box-shadow: 0px 1px 3px #bdb9b9;
+    display: block;
+        height: 75px;
+    overflow: hidden;
+    background-color: #000 !important;
+}
+.memeytext1 {
+       font-family: Impact;
+    margin: 0px !important;
+    font-size: 26px;
+    color: #fff;
+    text-shadow: 0 1px 8px #000;
+    text-align: center;
+    line-height: 34px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    -webkit-transition: all 600ms ease-in-out 0s;
+    -moz-transition: all 600ms ease-in-out 0s;
+    -ms-transition: all 600ms ease-in-out 0s;
+    -o-transition: all 600ms ease-in-out 0s;
+    transition: all 600ms ease-in-out 0s;
+    top: 0vw;
+    width: 96%;
+    position: relative;
+    cursor: pointer;
+    border: 1px solid #b6b6b6;
+    background-size: cover;
+    width: 100vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #000;
+    margin: 0vh;
+    box-shadow: 0px 1px 3px #bdb9b9;
+    display: block;
+    height: inherit ;
+    background-color: #000 !important;
+        height: 75px;
+        overflow: hidden;
+
+}
+.memeytext3 {
+  display: none;
+
+}
+.memeytext4 {
+     font-family: Impact;
+    text-align: center;
+    background-color: inherit;
+    text-transform: uppercase;
+    bottom: 2vh!important;
+    position: absolute;
+    font-size: 26px;
+    color: #fff;
+    text-shadow: 0 1px 8px #000;
+    text-align: center;
+    line-height: 34px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-color: #fff0; 
+       display: block;
+    height: 75px;
+    width: 100%;
+    -webkit-transition: all 600ms ease-in-out 0s;
+    -moz-transition: all 600ms ease-in-out 0s;
+    -ms-transition: all 600ms ease-in-out 0s;
+    -o-transition: all 600ms ease-in-out 0s;
+    transition: all 600ms ease-in-out 0s;
+
+}        
+.memeytext5 {
+     font-family: Impact;
+    text-align: center;
+    text-transform: uppercase;
+    top: 16vh!important;
+    position: absolute;
+    font-size: 26px;
+    color: #fff;
+    text-shadow: 0 1px 8px #000;
+    text-align: center;
+    line-height: 34px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: block;
+    top: 3vh!important;
+    height: 75px; 
+       background-color: #fff0;
+    width: 100%;
+    -webkit-transition: all 600ms ease-in-out 0s;
+    -moz-transition: all 600ms ease-in-out 0s;
+    -ms-transition: all 600ms ease-in-out 0s;
+    -o-transition: all 600ms ease-in-out 0s;
+    transition: all 600ms ease-in-out 0s;
+
+}
+.memeytext7 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #0e0e0e;
+    text-align: left;
+    background-color: inherit;
+    height: 70px;
+    border: 0px solid rgba(255, 255, 255, 0);
+    line-height: 30px;
+    width: 96%;
+    overflow: hidden;
+    margin-left: 2%;
+    margin-top: 1%;
+    text-shadow: none;
+    position: relative;
+    top: 0vh !important;
+    text-transform: uppercase;
+    -webkit-transition: all 600ms ease-in-out 0s;
+    -moz-transition: all 600ms ease-in-out 0s;
+    -ms-transition: all 600ms ease-in-out 0s;
+    -o-transition: all 600ms ease-in-out 0s;
+    transition: all 600ms ease-in-out 0s;
+
+}                    
+.memeid {
+    cursor: pointer;
+    background-image: url(http://all-of.us/images/meme1.png);
+    background-size: 90%;
+    width: 14vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 90px;
+    float: left;
+    background-color: #fff;
+    margin: 1vh;
+    height: 14vw;
+        box-shadow: 0px 1px 3px #bdb9b9;
+}
+.memeopt2 {
+    cursor: pointer;
+    background-image:url(http://all-of.us/images/meme2.png);
+    background-size: 90%;
+    height:14vw;
+    float: left;
+    width: 14vw;
+    background-repeat: no-repeat;
+        background-color: #fff;
+    background-position: center;
+    float: left;
+    margin: 1vh;
+    box-shadow: 0px 1px 3px #bdb9b9;
+}
+.memeopt3 {cursor: pointer;background-image: url(http://all-of.us/images/meme3.png);
+    background-color: #fff;
+    background-size: 90%;
+    height: 14vw;
+    float: left;
+    width: 14vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    float: left;
+    margin: 1vh;
+     box-shadow: 0px 1px 3px #bdb9b9;
+}
+.memeopt4 {
+    cursor: pointer;
+    background-image: url(http://all-of.us/images/meme4.png);
+    background-size: 90%;
+    height: 14vw;
+    float: left;
+    width: 14vw;
+    background-color: #fff;
+        background-repeat: no-repeat;
+    background-position: center;
+    float: left;
+    margin: 1vh;
+    box-shadow: 0px 1px 3px #bdb9b9;
+    }
+.memeopt5 {
+    cursor: pointer;
+    background-image: url(http://all-of.us/images/meme5.png);
+    background-size: 90%;
+    height: 14vw;
+    float: left;
+    width: 14vw;
+    background-color: #fff;
+        background-repeat: no-repeat;
+    background-position: center;
+    float: left;
+    margin: 1vh;
+    box-shadow: 0px 1px 3px #bdb9b9;
+}    
+.memeselected{
+    border: 1px solid #b6b6b6;
+    box-shadow: 1px 2px 10px #09bf8d;
+    animation-name: bgmorphmeme;
+    animation-duration: 2000ms; /* 3 seconds */
+    animation-timing-function: ease-in-out;
+    animation-delay: 0s;
+    animation-iteration-count: 1infinite;
+    animation-direction: normal;
+    animation-play-state: running;
+    /* Firefox: */
+    -moz-animation-name: bgmorphmeme;
+    -moz-animation-duration: 2000ms;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-delay: 0s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-direction: normal;
+    -moz-animation-play-state: running;
+    /* Safari and Chrome: */
+    -webkit-animation-name: bgmorphmeme;
+    -webkit-animation-duration: 2000ms;
+    -webkit-animation-timing-function: ease-in-out;
+
+    -webkit-animation-delay: 0s;
+    -webkit-animation-iteration-count: infinite;
+
+    -webkit-animation-direction: nomral;
+    -webkit-animation-play-state: running;
+    /* Opera: */
+    -o-animation-name: bgmorphmeme;
+    -o-animation-duration: 2000ms;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-delay: 0s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-direction: normal;
+    -o-animation-play-state: running;
+}
+
+@-webkit-keyframes bgmorphmeme
+{
+0% {    box-shadow: 0px 3px 10px #0bb593; opacity: .5;
+}
+20%{    box-shadow: 0px 3px 10px #09bf8d; opacity: .7;
+}
+40%{ box-shadow: 0px 3px 20px #36ded1; opacity:.9;
+}
+60%{    box-shadow: 0px 3px 10px #09bf8d; opacity: .7;
+}
+80%{ box-shadow: 0px 3px 40px #06e692; opacity: .5;
+}
+
+100% {box-shadow: 0px 3px 10px #0bb593; opacity: .7;
+}
+}
+
+.openmemebox {
+    margin-bottom: 10px !important;
+    background-color: #fefefe !important;
+    width: 100vw;
+    border: 0.25vw solid #fff;
+    box-shadow: 0px 1px 5px #CCC;
+    float: left;
+    margin-bottom: 10px;
+    height: 70px !important ;
+        -webkit-transition: all 600ms ease-in-out 0s;
+    -moz-transition: all 600ms ease-in-out 0s;
+    -ms-transition: all 600ms ease-in-out 0s;
+    -o-transition: all 600ms ease-in-out 0s;
+    transition: all 600ms ease-in-out 0s;
+}   
+.hiddenelement {
+    height: 0;
+    overflow: hidden;
+    background-color: #4f7d9e;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.mr-3 {
+    background-color: red; 
+    float: right;
+    margin-right: .5rem!important;
+}
+.mr-4 {
+    margin-left: 1rem!important
+}
+#M1logo {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    /* border: 1px solid #09dca2; */
+    width: 4vh;
+    height: 4vh;
+    /* border-radius: 2.3vh; */
+    /* border-bottom-left-radius: .3vw; */
+    /* top: .5vh; */
+    left: 47vw; 
+    height: 32px !important; 
+    width: 32px !important;
+   margin-top: 3px !important;
+       -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+    background: rgb(15,73,92);
+    background-color: #004879;
+    transform: translateZ(0px);
+}
+#spinHoverWhite2 {
+    background-image: url(http://all-of.us/images/SoulStat.fw.png);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+/*
+.scene {
+    border: 1px solid #ccc;
+    margin: 40px 0;
+    position: absolute;
+    width: 100vw;
+    height: 100vw;
+    margin: 80px auto;
+    perspective: 1000px;
+    top: 6vh;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform: translateZ(-288px);
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.carousel__cell {
+    position: absolute;
+    width: 100vw;
+    height: 100vw;
+    left: 0px;
+    top: 0px;
+    border: 2px solid #000;
+    line-height: 116px;
+    font-size: 80px;
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    transition: transform 1s,opacity 1s;
+}
+
+.carousel__cell:nth-child(9n+1) { background: hsla(  0, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+2) { background: hsla( 40, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+3) { background: hsla( 80, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+4) { background: hsla(120, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+5) { background: hsla(160, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+6) { background: hsla(200, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+7) { background: hsla(240, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+8) { background: hsla(280, 100%, 50%, 0.8); }
+.carousel__cell:nth-child(9n+0) { background: hsla(320, 100%, 50%, 0.8); }
+
+.carousel__cell:nth-child(1) { transform: rotateY(  0deg) translateZ(288px); }
+.carousel__cell:nth-child(2) { transform: rotateY( 40deg) translateZ(288px); }
+.carousel__cell:nth-child(3) { transform: rotateY( 80deg) translateZ(288px); }
+.carousel__cell:nth-child(4) { transform: rotateY(120deg) translateZ(288px); }
+.carousel__cell:nth-child(5) { transform: rotateY(160deg) translateZ(288px); }
+.carousel__cell:nth-child(6) { transform: rotateY(200deg) translateZ(288px); }
+.carousel__cell:nth-child(7) { transform: rotateY(240deg) translateZ(288px); }
+.carousel__cell:nth-child(8) { transform: rotateY(280deg) translateZ(288px); }
+.carousel__cell:nth-child(9) { transform: rotateY(320deg) translateZ(288px); }
+
+
+
+.carousel-options {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  background: hsla(0, 0%, 100%, 0.8);
+}
+*/
+.button  {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #004879;
+    overflow: visible;
+    border-radius: 50%;
+}
+.xtrapost-5 {
+    margin-left: 10px;
+}
+
+.scene {
+    width: 100vw;
+    min-height: 51vh;
+    /* border: 1px solid #ccc; */
+    margin: 0;
+    perspective: 600px;
+}
+
+.cardx {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform-origin: center right;
+  transition: transform 300ms;
+}
+
+.is-flipped {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  color: white;
+  backface-visibility: hidden;
+}
+
+.card__face--front {
+  background: white;
+}
+
+.card__face--back {
+  background: white;
+  transform: rotateY(180deg);
+}
+
+.headerclosed {
+   display: none; 
+  }
+.headeropen { 
+    position: absolute;
+    height: 30px;
+    background-color: azure;
+    width: 100vw;
+    top: 0vh;
+}
+.feedselect {
+    background-image: url(http://www.all-of.us/images/magnifer.png);
+    width: 32px;
+    height: 32px;
+    border: 0px solid;
+    margin: 5px;
+    margin-left: 6vw;
+}
+.menuin1 {
+    box-shadow: 0px 1px 14px #fff;
+        background-size: contain;
+    text-align: center;
+    font-size: 15px;
+    line-height: 28px;
+    color: #fbfcfc;
+    /* float: left; */
+    z-index: 199;
+    font-family: "Raleway";
+    height: 28px;
+    width: 3.5vh;
+    border-radius: 50%;
+    height: 3.5vh;
+    -webkit-transition: all 360ms ease-out 0s;
+    -moz-transition: all 360ms ease-out 0s;
+    -ms-transition: all 360ms ease-out 0s;
+    -o-transition: all 360ms ease-out 0s;
+    transition: all 360ms ease-out 0s;
+}
+#spinHoverWhite {
+    background-image: url(http://www.all-of.us/images/aoux23456.png);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.bigmovemem1{
+    height: 61vh;
+    -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+}
+.bigmovemem2{
+    height: 50vh;
+    -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+}
+.bigmovemem4{
+    height: 60vh;
+    -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+}
+.bigmovemem5{
+    height: 75vh;
+    -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+}
+.contentdescripx{
+    height: 70px;
+    overflow: auto;
+    padding: 15px;
+    box-shadow: 0px 3px 9px #ccc;
+    margin-top: 10px;
+}
+.contentdescripexpand {
+    height: 29vh;
+    box-shadow: inset 0 0px 53px #ccc;
+    -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+}
+#posttopsx1 {
+    margin-top: 23px;
+}
+.responsesx {
+    position: absolute;
+    top: -14px;
+    right: -6px;
+    background-color: #ff000096;
+    color: #ffff;
+    /* width: 30px; */
+    max-height: 26px;
+    border-radius: 14%;
+    padding: 1px;
+    line-height: 18px;
+    font-size: 11px;
+}
+.commentmini {
+    width: 100vw;
+    height: 14vh;
+    background-color: #ffffff;
+    margin-bottom: 17px;
+    float: left;
+    overflow: auto;
+    
+} 
+.mememini1 {
+    float: left;
+    font-size: 12px;
+    line-height: 16px;
+    background-color: black;
+    color: #fff;
+    text-decoration: solid;
+    width: unset; 
+}
+.mememini2 {
+    float: left;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000;
+    text-transform: uppercase;
+    border: 1px solid #c7d9e6;
+    width: unset;
+}
+.list-item--material__thumbnail2 {
+    width: 28px;
+    height: 28px;
+    margin: 0px;
+    border-radius: 100%;
+    display: block;
+}
+.microrepsonsesb1{
+    float: left;
+    font-size: 12px;
+    line-height: 16px;
+    background-color: black;
+    color: #fff;
+    width: unset;
+}
+.microrepsonsesb2{
+    float: left;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000;
+    text-transform: uppercase;
+    border: 1px solid #c7d9e6;
+    width: unset;
+}
+.microrepsonsesbstatbar3{
+    float: left;
+    font-size: 12px;
+    line-height: 16px;
+    background-color: black;
+    color: #fff;
+    width: unset;
+    margin-top: 4px;
+}
+.responseholderx {
+    width: 100vw;
+    float: left;
+    padding: 6px;
+}
+.scaleulard{
+    transform: scale(.8);
+    box-shadow: 0px 0px 10px #ccc;
+    -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+}
+.memecommentchange{
+    transform: scale(0.8);
+    transform-origin: left top;
+    float: left;
+}
+.memedisplayedpost{
+    position: absolute;
+    background-color: aqua;
+    width: 20vw;
+    height: 40vh;
+    right: 0px;
+}
+.reactionscontainer{
+    position: absolute;
+    width: 100vw;
+    height: 24vh;
+    background-color: #f9f9f9eb;
+    bottom: 0;
+    z-index: 9;
+    overflow: auto;
+    box-shadow: 0 -1px 6px #ccc;
+    border-bottom: 1px solid #ccc;
+    -webkit-transition: all 300ms ease-in-out 0s;
+    -moz-transition: all 300ms ease-in-out 0s;
+    -ms-transition: all 300ms ease-in-out 0s;
+    -o-transition: all 300ms ease-in-out 0s;
+    transition: all 300ms ease-in-out 0s;
+
+}
+.applyblur{
+    filter: blur(12px);
+     -webkit-transition: all 700ms ease-in-out 0s;
+    -moz-transition: all 700ms ease-in-out 0s;
+    -ms-transition: all 700ms ease-in-out 0s;
+    -o-transition: all 700ms ease-in-out 0s;
+    transition: all 700ms ease-in-out 0s;
+}
+.dismissblur {
+    filter: blur(0px); 
+    -webkit-transition: all 700ms ease-in-out 0s;
+    -moz-transition: all 700ms ease-in-out 0s;
+    -ms-transition: all 700ms ease-in-out 0s;
+    -o-transition: all 700ms ease-in-out 0s;
+    transition: all 700ms ease-in-out 0s;
+
+}
+.reactionslarger{
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+    height: 68vh;
+    position: absolute;
+    width: 100vw;
+    background-color: #f9f9f9;
+    bottom: 0;
+    z-index: 9;
+    overflow: auto;
+    box-shadow: 0 -1px 2px #ccc;
+     -webkit-transition: all 100ms ease-in-out 0s;
+    -moz-transition: all 100ms ease-in-out 0s;
+    -ms-transition: all 100ms ease-in-out 0s;
+    -o-transition: all 100ms ease-in-out 0s;
+    transition: all 100ms ease-in-out 0s;
+
+}
+.reactionssmaller{
+    height: 21vh;
+    position: absolute;
+    width: 100vw;
+    background-color: #f9f9f9eb;
+    bottom: 0;
+    z-index: 9;
+    overflow: auto;
+    box-shadow: 0 -1px 6px #ccc;
+     -webkit-transition: all 100ms ease-in-out 0s;
+    -moz-transition: all 100ms ease-in-out 0s;
+    -ms-transition: all 100ms ease-in-out 0s;
+    -o-transition: all 100ms ease-in-out 0s;
+    transition: all 100ms ease-in-out 0s;
+
+}
+.statcomment4{
+    background-color: #ffcfbf6b;
+    color: #000;
+    border-radius: 8px;
+    line-height: 20px;
 }
