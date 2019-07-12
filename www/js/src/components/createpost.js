@@ -1,5 +1,4 @@
 import m from "mithril";
-import Shell from "containers/shell";
 import Footer from "components/homefooter";
 
 var CreatePost = {
