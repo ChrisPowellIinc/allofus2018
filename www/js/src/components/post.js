@@ -282,7 +282,10 @@ const Post = {
                       class="memecommentchange"
                     >
                       <div id="block1x1" class="memeytext1">
-                        When is it coming to YouTube 👀
+                        When is it coming to YouTube{" "}
+                        <span role="img" aria-label="hello">
+                          👀
+                        </span>
                       </div>
                       <img
                         src={vnode.attrs.post.postimage}
@@ -292,7 +295,11 @@ const Post = {
                       <div id="block2x1" class="memeytext2">
                         Verified Newyork City ft fatjoe video is out now on
                         today go check it out if u fuck wit th song or video
-                        drop a Statue of Liberty 🗽 in th comments
+                        drop a Statue of Liberty{" "}
+                        <span role="img" aria-label="hello">
+                          🗽
+                        </span>{" "}
+                        in the comments
                       </div>
                     </div>
 
