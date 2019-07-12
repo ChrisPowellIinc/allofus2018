@@ -55,67 +55,11 @@ var Profile = {
               <i class="fa fa-images" /> Change image
             </label>
           </div>
-
-          <div class="col-md-6 mx-auto my-5 text-center">
-            <h1> Posts </h1>
-            <div class="my-4">
-              <input
-                class="text-input text-input--material w-100"
-                placeholder="Username"
-                type="text"
-                value={Auth.user.username}
-                oninput={m.withAttr("value", value => {
-                  Auth.setUsername(value);
-                })}
-                required
-              />
-              {Auth.errors.username && (
-                <small class="form-text text-danger">
-                  {Auth.errors.username}
-                </small>
-              )}
-            </div>
-
-            <div class="my-4">
-              <input
-                class="text-input text-input--material w-100"
-                placeholder="Password"
-                type="password"
-                value={Auth.user.password}
-                oninput={m.withAttr("value", value => {
-                  Auth.setPassword(value);
-                })}
-                required
-              />
-              {Auth.errors.password && (
-                <small class="form-text text-danger">
-                  {Auth.errors.password}
-                </small>
-              )}
-            </div>
-            {vnode.state.loading && (
-              <ons-progress-circular
-                class="white-text"
-                style="color: white"
-                indeterminate
-              />
-            )}
-            <button
-              class="button button--material w-100 mt-3"
-              type="submit"
-              disabled={vnode.state.loading}
-              onclick={() => {
-                console.log("errors");
-              }}
-            >
-              Login
-            </button>
-          </div>
           <ons-list>
             <ons-list-header>Profile Information</ons-list-header>
             <ons-list-item tappable>
               Name: {`${Auth.user.first_name} ${Auth.user.last_name}`}
-              <h1> {`${Auth.user.username}`}</h1>
+              {/* <h1> {`${Auth.user.username}`}</h1> */}
             </ons-list-item>
           </ons-list>
         </ons-page>
