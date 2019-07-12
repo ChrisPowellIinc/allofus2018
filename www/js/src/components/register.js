@@ -113,6 +113,24 @@ var Register = {
               <div class="my-4">
                 <input
                   class="text-input text-input--material w-100"
+                  placeholder="Phone"
+                  type="text"
+                  value={Register.user.phone}
+                  oninput={m.withAttr("value", value => {
+                    Register.user.phone = value;
+                  })}
+                  required
+                />
+                {Auth.errors.phone && (
+                  <small class="form-text text-danger">
+                    {Auth.errors.phone}
+                  </small>
+                )}
+              </div>
+
+              <div class="my-4">
+                <input
+                  class="text-input text-input--material w-100"
                   placeholder="Password"
                   type="password"
                   value={Register.user.password}
