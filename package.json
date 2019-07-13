@@ -33,7 +33,8 @@
         "localforage": "^1.7.3",
         "mithril": "^1.1.6",
         "onsenui": "^2.10.5",
-        "popper.js": "^1.14.5"
+        "popper.js": "^1.14.5",
+        "simple-peer": "^9.4.0"
     },
     "cordova": {
         "plugins": {
