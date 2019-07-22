@@ -1,235 +1,178 @@
 import m from "mithril";
+import Peer from "simple-peer";
+import SocketService from "./socket";
 
 var RTCService = {
   localVideo: document.getElementById("localVideo"),
   remoteVideo: document.getElementById("remoteVideo"),
-  localStream: null,
-  pc1: null,
-  pc2: null,
-  offerOptions: {
-    offerToReceiveAudio: 1,
-    offerToReceiveVideo: 1
+  client: {},
+  localStream: {},
+  peer: {},
+  recipient: "",
+  // used to initialize a peer
+  InitPeer(type) {
+    console.log("localstream-3: ", RTCService.localStream);
+    RTCService.client.peer = new Peer({
+      initiator: type === "init",
+      stream: RTCService.localStream,
+      trickle: false
+    });
+    RTCService.client.peer.on("error", err => console.log("error", err));
+    RTCService.client.peer.on("stream", stream => {
+      console.log("got stream");
+      RTCService.CreateVideo(stream);
+    });
+    RTCService.client.peer.on("data", data => {
+      console.log("got data...");
+      const decodedData = new TextDecoder("utf-8").decode(data);
+      // const peervideo = document.querySelector("#peerVideo");
+      RTCService.remoteVideo.style.filter = decodedData;
+    });
+    return RTCService.client.peer;
   },
-  startTime: 0,
-  getName(pc) {
-    return pc === RTCService.pc1 ? "pc1" : "pc2";
+  // for peer of type init
+  MakePeer() {
+    RTCService.client.gotAnswer = false;
+    console.log("localstream-2: ", RTCService.localStream);
+    // RTCService.client.peer =
+    RTCService.InitPeer("init");
+    RTCService.client.peer.on("signal", data => {
+      if (!RTCService.client.gotAnswer) {
+        if (RTCService.recipient) {
+          console.log("sending offer...", data);
+          data.type = "offer";
+          data.recipient = RTCService.recipient;
+          SocketService.message(data);
+        } else {
+          console.log("no recipient to call...");
+        }
+      } else {
+        console.log("have answer already...");
+      }
+    });
+    // RTCService.client.peer = peer;
   },
-  getOtherPc(pc) {
-    return pc === RTCService.pc1 ? RTCService.pc2 : RTCService.pc1;
-  },
-  start() {
+  InitMedia(stream) {
+    console.log("Received local stream");
     RTCService.localVideo = document.getElementById("localVideo");
     RTCService.remoteVideo = document.getElementById("remoteVideo");
+    RTCService.localVideo.srcObject = stream;
+    RTCService.localVideo.play();
+    RTCService.localStream = stream;
+    console.log("localstream: ", RTCService.localStream);
+  },
+  HandleReply() {
+    // this means the other person has accepted the call.
+    document.addEventListener(
+      "accept",
+      data => {
+        // you made the call that is why you are receiving this event.
+        // so the localstream has been created already.
+        RTCService.MakePeer();
+      },
+      false
+    );
+    // this means the other person has sent an offer...
+    document.addEventListener(
+      "offer",
+      data => {
+        // handle the offer send by the other person,
+        // by replying with an answer
+        RTCService.FrontAnswer(data.detail);
+      },
+      false
+    );
+    // this means the other person has sent an answer...
+    document.addEventListener(
+      "answer",
+      data => {
+        RTCService.SignalAnswer(data.detail.answer);
+      },
+      false
+    );
+  },
+  call(user_email) {
+    RTCService.recipient = user_email;
     console.log("Requesting local stream");
-    // startButton.disabled = true;
-    // try {
     return navigator.mediaDevices
       .getUserMedia({
-        audio: false,
+        audio: true,
         video: true
       })
       .then(stream => {
-        console.log("Received local stream");
-        RTCService.localVideo.srcObject = stream;
-        RTCService.localStream = stream;
-        RTCService.addListeners();
+        RTCService.InitMedia(stream);
+        if (RTCService.recipient) {
+          SocketService.message({
+            type: "call",
+            recipient: RTCService.recipient
+          });
+        } else {
+          console.log("no recipient to call...");
+        }
+      })
+      .catch(err => {
+        console.log(err);
       });
-    // callButton.disabled = false;
-    // } catch (e) {
-    //   console.log(`getUserMedia() error: ${e.name}`);
-    // }
   },
-  addListeners() {
-    RTCService.localVideo.addEventListener("loadedmetadata", () => {
-      console.log(
-        `Local video videoWidth: ${this.videoWidth}px,  videoHeight: ${this.videoHeight}px`
-      );
-    });
-
-    RTCService.remoteVideo.addEventListener("loadedmetadata", () => {
-      console.log(
-        `Remote video videoWidth: ${this.videoWidth}px,  videoHeight: ${this.videoHeight}px`
-      );
-    });
-
-    RTCService.remoteVideo.addEventListener("resize", () => {
-      console.log(
-        `Remote video size changed to ${RTCService.remoteVideo.videoWidth}x${RTCService.remoteVideo.videoHeight}`
-      );
-      // We'll use the first onsize callback as an indication that video has started
-      // playing out.
-      if (RTCService.startTime) {
-        const elapsedTime = window.performance.now() - RTCService.startTime;
-        console.log(`Setup time: ${elapsedTime.toFixed(3)}ms`);
-        RTCService.startTime = null;
-      }
+  // Answer call
+  AnswerCall(recipient) {
+    // RTCService.FrontAnswer(offer);
+    SocketService.message({
+      type: "accept",
+      recipient
     });
   },
-  getSelectedSdpSemantics() {
-    return { sdpSemantics: "unified-plan" };
-    // const sdpSemanticsSelect = document.querySelector("#sdpSemantics");
-    // const option = sdpSemanticsSelect.options[sdpSemanticsSelect.selectedIndex];
-    // return option.value === "" ? {} : { sdpSemantics: option.value };
+  SignalAnswer(answer) {
+    RTCService.client.gotAnswer = true;
+    const { peer } = RTCService.client;
+    peer.signal(answer);
+    // RTCService.client.peer.on("error", err => console.log("error", err));
+    // RTCService.client.peer.on("signal", data => {
+    //   console.log("answer signal: ", data);
+    // });
+    // RTCService.client.peer.signal(JSON.stringify(answer));
   },
-  async call() {
-    // callButton.disabled = true;
-    // hangupButton.disabled = false;
-    console.log("Starting call");
-    RTCService.startTime = window.performance.now();
-    const videoTracks = RTCService.localStream.getVideoTracks();
-    const audioTracks = RTCService.localStream.getAudioTracks();
-    if (videoTracks.length > 0) {
-      console.log(`Using video device: ${videoTracks[0].label}`);
-    }
-    if (audioTracks.length > 0) {
-      console.log(`Using audio device: ${audioTracks[0].label}`);
-    }
-    const configuration = RTCService.getSelectedSdpSemantics();
-    console.log("RTCPeerConnection configuration:", configuration);
-    RTCService.pc1 = new RTCPeerConnection(configuration);
-    console.log("Created local peer connection object pc1");
-    RTCService.pc1.addEventListener("icecandidate", e =>
-      RTCService.onIceCandidate(RTCService.pc1, e)
-    );
-    RTCService.pc2 = new RTCPeerConnection(configuration);
-    console.log("Created remote peer connection object pc2");
-    RTCService.pc2.addEventListener("icecandidate", e =>
-      RTCService.onIceCandidate(RTCService.pc2, e)
-    );
-    RTCService.pc1.addEventListener("iceconnectionstatechange", e =>
-      RTCService.onIceStateChange(RTCService.pc1, e)
-    );
-    RTCService.pc2.addEventListener("iceconnectionstatechange", e =>
-      RTCService.onIceStateChange(RTCService.pc2, e)
-    );
-    RTCService.pc2.addEventListener("track", RTCService.gotRemoteStream);
-
-    RTCService.localStream
-      .getTracks()
-      .forEach(track => RTCService.pc1.addTrack(track, RTCService.localStream));
-    console.log("Added local stream to pc1");
-
-    try {
-      console.log("pc1 createOffer start");
-      const offer = await RTCService.pc1.createOffer(RTCService.offerOptions);
-      await RTCService.onCreateOfferSuccess(offer);
-    } catch (e) {
-      RTCService.onCreateSessionDescriptionError(e);
-    }
+  DeclineCall() {
+    console.log("decline call...");
   },
-  onCreateSessionDescriptionError(error) {
-    console.log(`Failed to create session description: ${error.toString()}`);
+  FrontAnswer(offer) {
+    // RTCService.client.peer =
+    RTCService.InitPeer("notInit");
+    RTCService.client.peer.on("signal", data => {
+      console.log("socket sending answer: ", data);
+      var d = {};
+      d.type = "answer";
+      d.recipient = RTCService.recipient;
+      d.answer = data;
+      SocketService.message(d);
+    });
+    console.log("offer: ", offer);
+    RTCService.client.peer.signal(offer);
   },
-  async onCreateOfferSuccess(desc) {
-    console.log(`Offer from pc1\n${desc.sdp}`);
-    console.log("pc1 setLocalDescription start");
-    try {
-      await RTCService.pc1.setLocalDescription(desc);
-      RTCService.onSetLocalSuccess(RTCService.pc1);
-    } catch (e) {
-      onSetSessionDescriptionError();
-    }
-
-    console.log("pc2 setRemoteDescription start");
-    try {
-      await RTCService.pc2.setRemoteDescription(desc);
-      RTCService.onSetRemoteSuccess(RTCService.pc2);
-    } catch (e) {
-      onSetSessionDescriptionError();
-    }
-
-    console.log("pc2 createAnswer start");
-    // Since the 'remote' side has no media stream we need
-    // to pass in the right constraints in order for it to
-    // accept the incoming offer of audio and video.
-    try {
-      const answer = await RTCService.pc2.createAnswer();
-      await RTCService.onCreateAnswerSuccess(answer);
-    } catch (e) {
-      RTCService.onCreateSessionDescriptionError(e);
-    }
+  CreateVideo(stream) {
+    RTCService.remoteVideo.srcObject = stream;
+    RTCService.remoteVideo.play();
+    RTCService.remoteVideo.addEventListener("click", () => {
+      if (RTCService.remoteVideo.volume !== 0)
+        RTCService.remoteVideo.volume = 0;
+      else RTCService.remoteVideo.volume = 1;
+    });
   },
-
-  onSetLocalSuccess(pc) {
-    console.log(`${RTCService.getName(pc)} setLocalDescription complete`);
+  CreateDiv() {
+    const div = document.createElement("div");
+    div.setAttribute("class", "centered");
+    div.id = "muteText";
+    div.innerHTML = "Click to Mute/Unmute";
+    document.querySelector("#peerDiv").appendChild(div);
+    // if (checkboxTheme.checked === true)
+    //   document.querySelector("#muteText").style.color = "#fff";
   },
-
-  onSetRemoteSuccess(pc) {
-    console.log(`${RTCService.getName(pc)} setRemoteDescription complete`);
-  },
-
-  onSetSessionDescriptionError(error) {
-    console.log(`Failed to set session description: ${error.toString()}`);
-  },
-
-  gotRemoteStream(e) {
-    if (remoteVideo.srcObject !== e.streams[0]) {
-      remoteVideo.srcObject = e.streams[0];
-      console.log("pc2 received remote stream");
-    }
-  },
-
-  async onCreateAnswerSuccess(desc) {
-    console.log(`Answer from pc2:\n${desc.sdp}`);
-    console.log("pc2 setLocalDescription start");
-    try {
-      await RTCService.pc2.setLocalDescription(desc);
-      RTCService.onSetLocalSuccess(RTCService.pc2);
-    } catch (e) {
-      RTCService.onSetSessionDescriptionError(e);
-    }
-    console.log("pc1 setRemoteDescription start");
-    try {
-      await RTCService.pc1.setRemoteDescription(desc);
-      RTCService.onSetRemoteSuccess(RTCService.pc1);
-    } catch (e) {
-      onSetSessionDescriptionError(e);
-    }
-  },
-
-  async onIceCandidate(pc, event) {
-    try {
-      await RTCService.getOtherPc(pc).addIceCandidate(event.candidate);
-      RTCService.onAddIceCandidateSuccess(pc);
-    } catch (e) {
-      RTCService.onAddIceCandidateError(pc, e);
-    }
-    console.log(
-      `${RTCService.getName(pc)} ICE candidate:\n${
-        event.candidate ? event.candidate.candidate : "(null)"
-      }`
-    );
-  },
-
-  onAddIceCandidateSuccess(pc) {
-    console.log(`${RTCService.getName(pc)} addIceCandidate success`);
-  },
-
-  onAddIceCandidateError(pc, error) {
-    console.log(
-      `${RTCService.getName(
-        pc
-      )} failed to add ICE Candidate: ${error.toString()}`
-    );
-  },
-
-  onIceStateChange(pc, event) {
-    if (pc) {
-      console.log(
-        `${RTCService.getName(pc)} ICE state: ${pc.iceConnectionState}`
-      );
-      console.log("ICE state change event: ", event);
-    }
-  },
-
   hangup() {
-    console.log("Ending call");
-    RTCService.pc1.close();
-    RTCService.pc2.close();
-    RTCService.pc1 = null;
-    RTCService.pc2 = null;
-    hangupButton.disabled = true;
-    callButton.disabled = false;
+    document.getElementById("localVideo").remove();
+    document.getElementById("remoteVideo").remove();
+    if (RTCService.client.peer) {
+      RTCService.client.peer.destroy();
+    }
   }
 };
 
