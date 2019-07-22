@@ -563,7 +563,7 @@ ons-top-toolbar {
     background-color: #fff;
     color: #004879;
     overflow: visible;
-    border-radius: 50%;
+    /* border-radius: 50%; */
 }
 .xtrapost-5 {
     margin-left: 10px;
