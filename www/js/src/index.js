@@ -30,6 +30,7 @@ import "onsenui/css/onsen-css-components.css";
 
 import "../../css/index.css";
 
+import Auth from "services/auth";
 import Login from "./components/login";
 import Register from "./components/register";
 import Home from "./components/home";
@@ -38,6 +39,7 @@ import TimeLine from "./components/timeline";
 import Videos from "./components/videos";
 import Messages from "./components/messages";
 import CreatePost from "./components/createpost";
+import SocketService from "./services/socket";
 
 var app = {
   // Application Constructor
@@ -57,7 +59,9 @@ var app = {
   onDeviceReady() {
     this.receivedEvent("deviceready");
     var root = document.getElementById("app-container");
-
+    Auth.getUserFromStorage().then(resp => {
+      SocketService.connect();
+    });
     m.route(root, "/", {
       "/": {
         onmatch: () =>
