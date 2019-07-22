@@ -1,31 +1,81 @@
 import m from "mithril";
+import ons from "onsenui";
 import request from "services/request";
 import Footer from "components/homefooter";
 import RTCService from "services/rtc";
 
 const Call = {
   oncreate: vnode => {
-    RTCService.start().then(res => {
-      RTCService.call();
-    });
+    if (vnode.attrs.type === "call") {
+      RTCService.call(vnode.attrs.user.email).then(res => {
+        // RTCService.call();
+      });
+    }
   },
-  view: vnode => (
-    <section>
-      <h1>Calling...</h1>
-      <p> {vnode.attrs.user.email}</p>
-      <video id="localVideo" width="100%" autoplay playsinline>
-        <track src="" kind="captions" srclang="en" label="English" />
-      </video>
-      <video id="remoteVideo" width="100%" autoplay playsinline>
-        <track src="" kind="captions" srclang="en" label="English" />
-      </video>
-    </section>
-  )
+  view: vnode => {
+    const { hangup } = vnode.attrs;
+    return (
+      <section>
+        <div class="">
+          <h1>Calling...</h1>
+          <p> {vnode.attrs.user.email || "no user yet"}</p>
+
+          <ons-button modifier="large" onclick={hangup}>
+            end
+          </ons-button>
+        </div>
+        <video id="localVideo" width="100%" autoplay playsinline muted>
+          <track src="" kind="captions" srclang="en" label="English" />
+        </video>
+        <video id="remoteVideo" width="100%" autoplay playsinline>
+          <track src="" kind="captions" srclang="en" label="English" />
+        </video>
+      </section>
+    );
+  }
 };
 
 var Videos = {
   oncreate: () => {
     Videos.getUsers();
+    RTCService.HandleReply();
+    // Run function on `declinecall` event
+    document.addEventListener("call", data => {
+      const message = data.detail;
+      ons.notification
+        .confirm({ message: `You have a call from: ${message.owner}` })
+        .then(resp => {
+          if (resp) {
+            console.log("Okay");
+            Videos.state.page = "accept";
+            m.redraw();
+            navigator.mediaDevices
+              .getUserMedia({
+                audio: true,
+                video: true
+              })
+              .then(stream => {
+                RTCService.recipient = message.owner;
+                RTCService.InitMedia(stream);
+                RTCService.AnswerCall(RTCService.recipient);
+                // RTCService.
+                // do something here to show that the user has answered the call...
+              });
+          } else {
+            console.log("cancel");
+            RTCService.DeclineCall();
+          }
+          // ons.notification.alert(`Hello ${name}`);
+        })
+        .catch(err => {
+          console.err(err);
+        });
+    });
+  },
+  hangup: () => {
+    console.log("ending the call...");
+    RTCService.hangup();
+    Videos.state.page = "list";
   },
   state: {
     page: "list",
@@ -76,8 +126,12 @@ var Videos = {
               ))
             : ""}
         </section>
-      ) : Videos.state.page ? (
-        <Call user={Videos.state.user} />
+      ) : Videos.state.page === "call" || Videos.state.page === "accept" ? (
+        <Call
+          user={Videos.state.user}
+          type={Videos.state.page}
+          hangup={Videos.hangup}
+        />
       ) : (
         ""
       )}
