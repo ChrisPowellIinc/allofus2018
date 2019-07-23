@@ -15,7 +15,23 @@ var RTCService = {
     RTCService.client.peer = new Peer({
       initiator: type === "init",
       stream: RTCService.localStream,
-      trickle: false
+      trickle: false,
+      reconnectTimer: 100,
+      iceTransportPolicy: "relay",
+      config: {
+        iceServers: [
+          {
+            urls: "stun:stun.l.google.com:19302"
+            // username: "pasaseh@ether123.net",
+            // credential: "12345678"
+          },
+          {
+            url: "turn:numb.viagenie.ca",
+            username: "webrtc@live.com",
+            credential: "muazkh"
+          }
+        ]
+      }
     });
     RTCService.client.peer.on("error", err => console.log("error", err));
     RTCService.client.peer.on("stream", stream => {
