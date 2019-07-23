@@ -22,6 +22,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
+    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+        <string>need camera access to take pictures</string>
+    </edit-config>
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <engine name="android" spec="^7.1.2" />
     <engine name="browser" spec="^5.0.4" />

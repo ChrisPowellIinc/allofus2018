@@ -20,6 +20,7 @@
         "ccapture.js": "^1.1.0",
         "cordova-android": "^7.1.2",
         "cordova-browser": "^5.0.4",
+        "cordova-plugin-camera": "^4.1.0",
         "cordova-plugin-device": "^2.0.3",
         "cordova-plugin-iosrtc": "^4.0.2",
         "cordova-plugin-whitelist": "^1.3.3",
@@ -40,7 +41,10 @@
         "plugins": {
             "cordova-plugin-whitelist": {},
             "cordova-plugin-iosrtc": {},
-            "cordova-plugin-device": {}
+            "cordova-plugin-device": {},
+            "cordova-plugin-camera": {
+                "ANDROID_SUPPORT_V4_VERSION": "27.+"
+            }
         },
         "platforms": [
             "android",
