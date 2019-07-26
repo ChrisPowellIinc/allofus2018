@@ -879,3 +879,9 @@ ons-top-toolbar {
     border-radius: 8px;
     line-height: 20px;
 }
+
+
+video {
+    max-height: 40%;
+    min-height: 30%;
+}
