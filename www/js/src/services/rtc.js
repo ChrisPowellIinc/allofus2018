@@ -21,14 +21,14 @@ var RTCService = {
       config: {
         iceServers: [
           {
-            urls: "stun:stun.l.google.com:19302"
-            // username: "pasaseh@ether123.net",
-            // credential: "12345678"
-          },
-          {
             url: "turn:numb.viagenie.ca",
             username: "webrtc@live.com",
             credential: "muazkh"
+          },
+          {
+            urls: "stun:stun.l.google.com:19302"
+            // username: "pasaseh@ether123.net",
+            // credential: "12345678"
           }
         ]
       }
