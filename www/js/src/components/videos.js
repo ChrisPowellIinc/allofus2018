@@ -15,21 +15,26 @@ const Call = {
   view: vnode => {
     const { hangup } = vnode.attrs;
     return (
-      <section>
+      <section class="container">
         <div class="">
-          <h1>Calling...</h1>
-          <p> {vnode.attrs.user.email || "no user yet"}</p>
-
-          <ons-button modifier="large" onclick={hangup}>
-            end
-          </ons-button>
+          <p>Calling: {vnode.attrs.user.email || "no user yet"}</p>
         </div>
-        <video id="localVideo" width="100%" autoplay playsinline muted>
+        <video
+          id="localVideo"
+          width="100%"
+          height="40%"
+          autoplay
+          playsinline
+          muted
+        >
           <track src="" kind="captions" srclang="en" label="English" />
         </video>
-        <video id="remoteVideo" width="100%" autoplay playsinline>
+        <video id="remoteVideo" width="100%" height="40%" autoplay playsinline>
           <track src="" kind="captions" srclang="en" label="English" />
         </video>
+        <ons-fab onclick={hangup} position="bottom right" class="bg-danger">
+          <ons-icon icon="md-close" style="color: white;" />
+        </ons-fab>
       </section>
     );
   }
