@@ -114,6 +114,7 @@ var RTCService = {
       .getUserMedia({
         audio: true,
         video: true
+        // { width: 1280, height: 720 }
       })
       .then(stream => {
         RTCService.InitMedia(stream);
