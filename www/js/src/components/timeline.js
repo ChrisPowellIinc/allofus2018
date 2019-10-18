@@ -11,7 +11,7 @@ const posts = [
     id: 1,
     meme: "https://randomuser.me/api/portraits/women/74.jpg",
     description:
-      "    Search for them on YouTube –  ID: A36087 👀🤩😍🎊🎉 Youve been VRd, and we cant wait to show the World inside!  in VirtualReality! Use your phone or VR headset to see RealEstate & Business listings virtually at www.LUXVRTOURS.com! How do you use it? 🧐🤔😏 Rotate, tilt, and turn around with your device to change the perspective! Its that simple, welcome to the future! ",
+      "    Search for them on YouTube –  ID: A36087 👀 🤩 😍 🎊 🎉  Youve been VRd, and we cant wait to show the World inside!  in VirtualReality! Use your phone or VR headset to see RealEstate & Business listings virtually at www.LUXVRTOURS.com! How do you use it? 🧐🤔😏 Rotate, tilt, and turn around with your device to change the perspective! Its that simple, welcome to the future! ",
     postimage:
       "https://luxvrtours.com/wp-content/uploads/2018/06/videotogif_2019.05.19_12.26.27.gif"
   },
