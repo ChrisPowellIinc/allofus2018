@@ -78,16 +78,6 @@ var RTCService = {
     console.log("localstream: ", RTCService.localStream);
   },
   HandleReply() {
-    // this means the other person has accepted the call.
-    document.addEventListener(
-      "accept",
-      data => {
-        // you made the call that is why you are receiving this event.
-        // so the localstream has been created already.
-        RTCService.MakePeer();
-      },
-      false
-    );
     // this means the other person has sent an offer...
     document.addEventListener(
       "offer",
@@ -113,8 +103,9 @@ var RTCService = {
     return navigator.mediaDevices
       .getUserMedia({
         audio: true,
-        video: true
-        // { width: 1280, height: 720 }
+        video: true,
+        width: 400,
+        height: 720
       })
       .then(stream => {
         RTCService.InitMedia(stream);
