@@ -1,5 +1,6 @@
 import m from "mithril";
 // import ons from "onsenui";
+import izitoast from "izitoast";
 import Auth from "services/auth";
 
 var Login = {
@@ -8,8 +9,27 @@ var Login = {
     console.log("hello login");
     Auth.login(Auth.user).catch(err => {});
   },
+  oninit: () => {
+    document.getElementsByClassName("toolbar");
+  },
   oncreate: vnode => {
     vnode.state.errors = [];
+    console.log("Sean kingston the genius is with us!!!");
+    m.request({
+      url: "https://jsonplaceholder.typicode.com/posts",
+      method: "GET"
+    })
+      .then(resp => {
+        console.log(resp);
+        vnode.state.posts = posts;
+        m.redraw();
+      })
+      .catch(err => {
+        izitoast.error({
+          title: "error",
+          message: err.message
+        });
+      });
   },
   view: vnode => (
     <div class="">

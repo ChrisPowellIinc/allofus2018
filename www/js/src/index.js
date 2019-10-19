@@ -40,6 +40,8 @@ import Videos from "./components/videos";
 import Messages from "./components/messages";
 import CreatePost from "./components/createpost";
 import SocketService from "./services/socket";
+import Sean from "./components/sean";
+import PostView from "./testcomponents/postview";
 
 var app = {
   // Application Constructor
@@ -74,6 +76,7 @@ var app = {
     Auth.getUserFromStorage().then(resp => {
       SocketService.connect();
     });
+
     m.route(root, "/", {
       "/": {
         onmatch: () =>
@@ -128,6 +131,20 @@ var app = {
           new Promise(resolve => {
             console.log("will check for login here...");
             resolve(Messages);
+          })
+      },
+      "/sean": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(Sean);
+          })
+      },
+      "/sean/:postid": {
+        onmatch: () =>
+          new Promise(resolve => {
+            console.log("will check for login here...");
+            resolve(PostView);
           })
       }
     });

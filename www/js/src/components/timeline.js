@@ -60,7 +60,6 @@ var TimeLine = {
     //     console.log(blob);
     //   });
     // }, 5000);
-    m.redraw();
     // m.request({
     //   url: "https://jsonplaceholder.typicode.com/posts",
     //   method: "GET"
@@ -75,6 +74,7 @@ var TimeLine = {
     //       message: err.message
     //     });
     //   });
+    m.redraw();
   },
 
   openPost: () => {

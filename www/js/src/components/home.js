@@ -26,7 +26,7 @@ var Home = {
           </a>
           <br />
           <a
-            href="/signup"
+            href="/sean"
             oncreate={m.route.link}
             class="button button--material w-100 mt-4 pointer"
           >
