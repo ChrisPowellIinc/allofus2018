@@ -12,6 +12,39 @@ var Profile = {
     Auth.getUserFromStorage().then(res => {
       m.redraw();
     });
+    // dynamically load the stripe script here...
+    var script = document.createElement("script");
+    script.onload = () => {
+      console.log("stripe here");
+      // do stuff with the script
+      var stripe = Stripe("pk_live_dnUSjxmao34YO0EmPFEbnInd");
+      var elements = stripe.elements();
+      // Custom styling can be passed to options when creating an Element.
+      // (Note that this demo uses a wider set of styles than the guide below.)
+      var style = {
+        base: {
+          color: "#32325d",
+          fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+          fontSmoothing: "antialiased",
+          fontSize: "16px",
+          "::placeholder": {
+            color: "#aab7c4"
+          }
+        },
+        invalid: {
+          color: "#fa755a",
+          iconColor: "#fa755a"
+        }
+      };
+
+      var card = elements.create("card", { style });
+
+      // Add an instance of the card Element into the `card-element` <div>.
+      card.mount("#card-element");
+    };
+
+    script.src = "https://js.stripe.com/v3/";
+    document.head.appendChild(script); // or something of the likes
   },
   UploadImage: e => {
     if (e.target.files[0]) {
@@ -59,6 +92,7 @@ var Profile = {
             <ons-list-header>Profile Information</ons-list-header>
             <ons-list-item tappable>
               Name: {`${Auth.user.first_name} ${Auth.user.last_name}`}
+              <div id="card-element" />
               {/* <h1> {`${Auth.user.username}`}</h1> */}
             </ons-list-item>
           </ons-list>
