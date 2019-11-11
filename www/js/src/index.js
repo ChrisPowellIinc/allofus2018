@@ -73,8 +73,15 @@ var app = {
       document.getElementsByTagName("head")[0].appendChild(script);
     }
 
-    Auth.getUserFromStorage().then(resp => {
+    Auth.getUserFromStorage().then(user => {
       SocketService.connect();
+      console.log(user);
+      if (user.token) {
+        // user is logged in, navigate to profile page.
+        // for now go to the videos page
+        m.route.set("/profile");
+        console.log("set route to videos");
+      }
     });
 
     m.route(root, "/", {
