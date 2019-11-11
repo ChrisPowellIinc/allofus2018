@@ -129,17 +129,13 @@ var Videos = {
       {Videos.state.page === "list" ? (
         <section>
           <ons-list
-            style="width: 100%"
+            style="width: 100%; padding: .5rem"
             class="list list--material overflow-auto content-height"
           >
             <ons-list-header>Users</ons-list-header>
             {Videos.state.users.length
               ? Videos.state.users.map(user => (
-                  <ons-list-item
-                    onclick={() => {
-                      Videos.call(user);
-                    }}
-                  >
+                  <ons-list-item>
                     <div class="left">
                       <img
                         class="list-item__thumbnail"
@@ -148,7 +144,15 @@ var Videos = {
                     </div>
                     <div class="center">
                       <span class="list-item__title">{`${user.first_name} ${user.last_name}`}</span>
-                      <span class="list-item__subtitle">On the Internet</span>
+                      <span class="list-item__subtitle">{user.email}</span>
+                    </div>
+                    <div
+                      class="right"
+                      onclick={() => {
+                        Videos.call(user);
+                      }}
+                    >
+                      <span class="fa fa-phone" />
                     </div>
                   </ons-list-item>
                 ))
