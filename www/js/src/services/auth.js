@@ -5,11 +5,43 @@ import ons from "onsenui";
 import { handleResponse, handleValidationError } from "utils";
 import { User, UserSchema, LoginSchema } from "models/user";
 import SocketService from "services/socket";
+import request from "services/request";
 
 const Auth = {
   errors: {},
+  pms: [],
   user: User,
   loading: false,
+  GetMyCards: () => {
+    request({
+      method: "GET",
+      url: `${process.env.API_URL}/auth/cards`
+    })
+      .then(res => {
+        console.log(res);
+        const { pms } = res.data;
+        Auth.pms = pms;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
+  GetUser: () => {
+    request(`${process.env.API_URL}/auth/me`)
+      .then(res => {
+        console.log(res);
+        const { user } = res.data;
+        Auth.getUserFromStorage().then(() => {
+          user.token = Auth.user.token;
+          localForage.setItem("user", user).then(user => {
+            Auth.user = user;
+          });
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  },
   /**
    * Sets the value of username.
    * @param {string} username
@@ -38,7 +70,7 @@ const Auth = {
       } else {
         Auth.user = User;
       }
-      return Promise.resolve(true);
+      return Promise.resolve(Auth.user);
     } catch (err) {
       Auth.logout();
     }
