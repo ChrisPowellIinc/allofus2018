@@ -27,7 +27,10 @@ const Auth = {
       });
   },
   GetUser: () => {
-    request(`${process.env.API_URL}/auth/me`)
+    request({
+      url: `${process.env.API_URL}/auth/me`,
+      method: "GET"
+    })
       .then(res => {
         console.log(res);
         const { user } = res.data;
