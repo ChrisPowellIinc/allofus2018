@@ -75,13 +75,6 @@ var app = {
 
     Auth.getUserFromStorage().then(user => {
       SocketService.connect();
-      console.log(user);
-      if (user.token) {
-        // user is logged in, navigate to profile page.
-        // for now go to the videos page
-        m.route.set("/profile");
-        console.log("set route to videos");
-      }
     });
 
     m.route(root, "/", {
@@ -93,15 +86,25 @@ var app = {
       },
       "/login": {
         onmatch: () =>
-          new Promise(resolve => {
-            console.log("will check for login here...");
+          new Promise((resolve, reject) => {
+            if (Auth.user.token) {
+              // user is logged in, navigate to profile page.
+              // for now go to the videos page
+              m.route.set("/profile");
+              return reject();
+            }
             resolve(Login);
           })
       },
       "/register": {
         onmatch: () =>
-          new Promise(resolve => {
-            console.log("will check for login here...");
+          new Promise((resolve, reject) => {
+            if (Auth.user.token) {
+              // user is logged in, navigate to profile page.
+              // for now go to the videos page
+              m.route.set("/profile");
+              return reject();
+            }
             resolve(Register);
           })
       },
