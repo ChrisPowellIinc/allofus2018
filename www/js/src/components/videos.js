@@ -3,6 +3,7 @@ import ons from "onsenui";
 import request from "services/request";
 import Footer from "components/homefooter";
 import RTCService from "services/rtc";
+import PaymentService from "services/payment";
 
 const Call = {
   oncreate: vnode => {
@@ -48,7 +49,7 @@ const Call = {
 };
 
 var Videos = {
-  oncreate: () => {
+  oncreate: vnode => {
     Videos.getUsers();
     RTCService.HandleReply();
     // this means the other person has accepted the call.
@@ -112,6 +113,7 @@ var Videos = {
       method: "GET"
     })
       .then(resp => {
+        // console.log(resp);
         Videos.state.users = resp.data.users;
         m.redraw();
       })
@@ -119,10 +121,78 @@ var Videos = {
         console.log(err);
       });
   },
+  CardTokenAndPay(stripe, user) {
+    // Create an instance of Elements.
+    var elements = stripe.elements();
+
+    // Custom styling can be passed to options when creating an Element.
+    // (Note that this demo uses a wider set of styles than the guide below.)
+    var style = {
+      base: {
+        color: "#32325d",
+        fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+        fontSmoothing: "antialiased",
+        fontSize: "16px",
+        "::placeholder": {
+          color: "#aab7c4"
+        }
+      },
+      invalid: {
+        color: "#fa755a",
+        iconColor: "#fa755a"
+      }
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create("card", { style });
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount("#card-element");
+
+    // Handle real-time validation errors from the card Element.
+    card.addEventListener("change", event => {
+      var displayError = document.getElementById("card-errors");
+      if (event.error) {
+        displayError.textContent = event.error.message;
+      } else {
+        displayError.textContent = "";
+      }
+    });
+
+    // Handle form submission.
+    var form = document.getElementById("payment-form");
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+
+      stripe.createToken(card).then(result => {
+        if (result.error) {
+          // Inform the user if there was an error.
+          var errorElement = document.getElementById("card-errors");
+          errorElement.textContent = result.error.message;
+        } else {
+          console.log(result);
+          // Send the token to your server.
+          PaymentService.chargeForCall(user, result.token.id)
+            .then(res => {
+              console.log("Please dont call me yet cause i have not paid");
+              Videos.state.page = "call";
+              Videos.state.user = user;
+              m.redraw();
+            })
+            .finally(() => {
+              Videos.modal.hide();
+            });
+        }
+      });
+    });
+  },
   call(user) {
     console.log(user);
-    Videos.state.page = "call";
-    Videos.state.user = user;
+    Videos.modal = document.querySelector("ons-modal");
+    Videos.modal.show();
+    PaymentService.Setup(stripe => {
+      Videos.CardTokenAndPay(stripe, user);
+    });
   },
   view: vnode => (
     <section>
@@ -143,7 +213,12 @@ var Videos = {
                       />
                     </div>
                     <div class="center">
-                      <span class="list-item__title">{`${user.first_name} ${user.last_name}`}</span>
+                      <span class="list-item__title">
+                        {`${user.first_name} ${user.last_name}`}{" "}
+                        <span class="notification notification--material">
+                          ${user.call_price ? user.call_price / 100 : 0}
+                        </span>
+                      </span>
                       <span class="list-item__subtitle">{user.email}</span>
                     </div>
                     <div
@@ -168,6 +243,43 @@ var Videos = {
       ) : (
         ""
       )}
+      <ons-modal direction="up">
+        <ons-page>
+          <div style="padding: 1rem">
+            <form id="payment-form">
+              <div class="form-row">
+                <label for="card-element">Credit or debit card</label>
+                <div id="card-element" style="width: 100%">
+                  {/* <!-- A Stripe Element will be inserted here. --> */}
+                </div>
+
+                {/* <!-- Used to display form errors. --> */}
+                <div id="card-errors" role="alert" />
+              </div>
+              <br />
+              <br />
+              <button
+                class="button--large--cta"
+                style="width: 95%; margin: 0 auto;"
+              >
+                Submit Payment
+              </button>
+            </form>
+            <br />
+            <br />
+            <ons-button
+              type="danger"
+              onclick={() => {
+                if (Videos.modal) {
+                  Videos.modal.hide();
+                }
+              }}
+            >
+              Cancel
+            </ons-button>
+          </div>
+        </ons-page>
+      </ons-modal>
       <Footer />
     </section>
   )
