@@ -1,4 +1,5 @@
 import m from "mithril";
+import Auth from "../services/auth";
 
 var Home = {
   view: vnode => (
@@ -17,21 +18,33 @@ var Home = {
         <div class="mt-4 text-center">
           <h3> Welcome to</h3>
           <h1>All of Us </h1>
-          <a
-            href="/login"
-            oncreate={m.route.link}
-            class="button button--material w-100 mt-4 pointer"
-          >
-            LOGIN
-          </a>
-          <br />
-          <a
-            href="/sean"
-            oncreate={m.route.link}
-            class="button button--material w-100 mt-4 pointer"
-          >
-            SIGNUP
-          </a>
+          {!Auth.user.token ? (
+            <div>
+              <a
+                href="/login"
+                oncreate={m.route.link}
+                class="button button--material w-100 mt-4 pointer"
+              >
+                LOGIN
+              </a>
+              <br />
+              <a
+                href="/sean"
+                oncreate={m.route.link}
+                class="button button--material w-100 mt-4 pointer"
+              >
+                SIGNUP
+              </a>
+            </div>
+          ) : (
+            <a
+              href="/timeline"
+              oncreate={m.route.link}
+              class="button button--material w-100 mt-4 pointer"
+            >
+              Timeline
+            </a>
+          )}
         </div>
         {/* </div> */}
       </main>
