@@ -25,7 +25,10 @@ var request = options =>
     return m
       .request(options)
       .then(response => response)
-      .catch(err => err);
+      .catch(err => {
+        console.table(err);
+        return Promise.reject(err);
+      });
   });
 
 export default request;
