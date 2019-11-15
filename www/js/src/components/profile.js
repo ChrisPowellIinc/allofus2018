@@ -2,17 +2,18 @@ import m from "mithril";
 import ProfileService from "services/profile.js";
 // import handleResponse from "utils";
 import Auth from "services/auth";
+import PaymentService from "services/payment";
 import Footer from "components/homefooter";
 import request from "services/request";
 // import Header from "components/homeheader";
 
-// import { ons-list-header, ons-list-item } from "onsenui";
+import ons from "onsenui";
 
 const Profile = {
   sessionID: "",
   removeLoader: {},
   modal: null,
-  fund_amount: 0,
+  // call_price: 0,
   RemovePaymentMethod: id => {
     request({
       method: "DELETE",
@@ -30,59 +31,28 @@ const Profile = {
         // m.redraw();
       });
   },
-  FundWallet: () => {
-    // var modal = document.querySelector("ons-modal");
-    if (Profile.modal) {
-      Profile.modal.show();
-      // setTimeout(() => {
-      //   modal.hide();
-      // }, 5000);
-    } else {
-      console.log("no modal");
+  ChangeCallPrice: () => {
+    if (!Auth.user.call_price) {
+      return ons.notification.alert("Please specify a price.");
     }
+    request({
+      method: "POST",
+      url: `${process.env.API_URL}/users/callprice`,
+      data: { call_price: parseInt(Auth.user.call_price, 10) }
+    })
+      .then(res => {
+        console.log(res);
+        ons.notification.alert(res.message);
+        Auth.GetUser();
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   pay: () => {
     console.log("pay with a particular selected card: ", Profile.fund_amount);
   },
-  GetSessionID: () =>
-    request({
-      method: "GET",
-      url: `${process.env.API_URL}/auth/sessionid`
-    })
-      .then(res => {
-        console.log(res);
-        Profile.sessionID = res.data.data.id;
-        return res;
-      })
-      .catch(err => {
-        console.log(err);
-      }),
-  SaveCardDetails: () => {
-    Profile.GetSessionID().then(() => {
-      var script = document.createElement("script");
-      script.onload = () => {
-        console.log("stripe here");
-        // do stuff with the script
-        const stripe = Stripe(process.env.PK_STRIPE);
-        stripe
-          .redirectToCheckout({
-            // Make the id field from the Checkout Session creation API response
-            // available to this file, so you can provide it as parameter here
-            // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
-            sessionId: Profile.sessionID
-          })
-          .then(result => {
-            // If `redirectToCheckout` fails due to a browser or network
-            // error, display the localized error message to your customer
-            // using `result.error.message`.
-            console.log(result);
-          });
-      };
 
-      script.src = "https://js.stripe.com/v3/";
-      document.head.appendChild(script); // or something of the likes
-    });
-  },
   oncreate: vnode => {
     Auth.GetMyCards();
     Profile.modal = document.querySelector("ons-modal");
@@ -135,32 +105,57 @@ const Profile = {
           </div>
           <ons-list>
             <ons-list-header>Profile Information</ons-list-header>
-            <ons-list-item tappable>
+            <ons-list-item>
               <p class="pl-3 mb-0">Username: {Auth.user.username}</p>
             </ons-list-item>
-            <ons-list-item tappable>
+            <ons-list-item>
               <p class="pl-3 mb-0">
                 Name: {`${Auth.user.first_name} ${Auth.user.last_name}`}
               </p>
             </ons-list-item>
-            <ons-list-item tappable>
+            <ons-list-item>
               <p class="pl-3 mb-0">Email: {Auth.user.email}</p>
             </ons-list-item>
-            <ons-list-item tappable>
+            <ons-list-item>
               <p class="pl-3 mb-0">Phone: {Auth.user.phone}</p>
+            </ons-list-item>
+            <ons-list-item
+              tappable
+              onclick={() => {
+                Auth.logout();
+              }}
+            >
+              <p class="pl-3 mb-0">
+                <i class="fa fa-sign-out-alt" /> Logout
+              </p>
             </ons-list-item>
           </ons-list>
           <ons-list>
-            <ons-list-header>Wallet</ons-list-header>
-            <ons-list-item tappable>
+            <ons-list-header>Call Price</ons-list-header>
+            <ons-list-item>
               <p class="pl-3 mb-0">
-                Balance: ${Auth.user.balance ? Auth.user.balance : 0}
+                <p class="dib v-mid pt-2">Amount: $</p>
+                <ons-input
+                  id="amount"
+                  type="number"
+                  modifier="underbar"
+                  placeholder="Amount"
+                  min="0"
+                  max="200"
+                  oninput={m.withAttr("value", value => {
+                    console.log(value);
+                    Auth.user.call_price = value;
+                  })}
+                  value={Auth.user.call_price ? Auth.user.call_price : 0}
+                  float
+                />
               </p>
               <ons-toolbar-button
                 class="right pl-3"
-                onclick={Profile.FundWallet}
+                onclick={Profile.ChangeCallPrice}
               >
-                <ons-icon icon="md-plus" />
+                {/* <ons-icon icon="md-plus" /> */}
+                Update
               </ons-toolbar-button>
             </ons-list-item>
             <ons-list-header>Payment Cards </ons-list-header>
@@ -201,12 +196,12 @@ const Profile = {
             <ons-button
               class="pl-3"
               modifier="large--quiet"
-              onclick={Profile.SaveCardDetails}
+              onclick={PaymentService.Checkout}
             >
               <ons-icon icon="md-plus" /> add card
             </ons-button>
           </ons-list>
-          <ons-modal direction="up">
+          {/* <ons-modal direction="up">
             <ons-page>
               <div style="text-align: center; margin-top: 30px;">
                 <p>
@@ -248,7 +243,7 @@ const Profile = {
                 </p>
               </div>
             </ons-page>
-          </ons-modal>
+          </ons-modal> */}
         </ons-page>
       </div>
       <Footer />
