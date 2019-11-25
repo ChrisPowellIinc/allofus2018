@@ -69,6 +69,7 @@ const Auth = {
     try {
       const user = await localForage.getItem("user");
       if (user) {
+        // user.call_price /= 100;
         Auth.user = user;
       } else {
         Auth.user = User;
@@ -148,18 +149,24 @@ const Auth = {
       .then(res => {
         // handleResponse(res);
         if (res.status === 200) {
-          localForage.setItem("user", res.data).then(user => {
-            Auth.user = user;
-            ons.notification.alert(`Welcome ${user.first_name}`);
-            SocketService.connect();
-            m.route.set("/profile");
-          });
+          localForage
+            .setItem("user", res.data)
+            .then(user => {
+              Auth.user = user;
+              ons.notification.alert(`Welcome ${user.first_name}`);
+              SocketService.connect();
+              m.route.set("/profile");
+            })
+            .catch(err => {
+              console.log(err);
+            });
         }
       })
       .catch(err => {
         // toast.error(err.message);
         // TODO Send Notification alert
-        ons.notification.alert(err.message);
+        console.log(err);
+        // ons.notification.alert(err.message);
       })
       .finally(() => {
         Auth.loading = false;
