@@ -18,14 +18,12 @@
         "babel-plugin-transform-runtime": "^6.23.0",
         "bootstrap": "^4.1.3",
         "ccapture.js": "^1.1.0",
-        "cordova-android": "^7.1.2",
+        "cordova-android": "^8.1.0",
         "cordova-browser": "^5.0.4",
         "cordova-ios": "^5.0.1",
         "cordova-plugin-add-swift-support": "2.0.2",
         "cordova-plugin-camera": "^4.1.0",
         "cordova-plugin-device": "^2.0.3",
-        "cordova-plugin-iosrtc": "^4.0.2",
-        "cordova-plugin-iosrtc-simplyrtc": "4.0.3-rc4",
         "cordova-plugin-webrtc": "0.1.1",
         "cordova-plugin-whitelist": "^1.3.3",
         "dotenv-webpack": "^1.7.0",
@@ -45,14 +43,11 @@
             "cordova-plugin-device": {},
             "cordova-plugin-camera": {
                 "ANDROID_SUPPORT_V4_VERSION": "27.+"
-            },
-            "cordova-plugin-add-swift-support": {},
-            "cordova-plugin-iosrtc-simplyrtc": {},
-            "cordova-plugin-iosrtc": {}
+            }
         },
         "platforms": [
-            "android",
-            "browser"
+            "browser",
+            "android"
         ]
     },
     "devDependencies": {
