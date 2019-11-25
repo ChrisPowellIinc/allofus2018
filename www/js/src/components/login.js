@@ -1,35 +1,26 @@
 import m from "mithril";
 // import ons from "onsenui";
-import izitoast from "izitoast";
 import Auth from "services/auth";
 
 var Login = {
   login: e => {
     e.preventDefault();
     console.log("hello login");
-    Auth.login(Auth.user).catch(err => {});
+    Login.state.loading = true;
+    Auth.login(Auth.user)
+      .then(res => {
+        Login.state.loading = false;
+      })
+      .catch(err => {});
   },
   oninit: () => {
     document.getElementsByClassName("toolbar");
   },
   oncreate: vnode => {
     vnode.state.errors = [];
-    console.log("Sean kingston the genius is with us!!!");
-    m.request({
-      url: "https://jsonplaceholder.typicode.com/posts",
-      method: "GET"
-    })
-      .then(resp => {
-        console.log(resp);
-        vnode.state.posts = posts;
-        m.redraw();
-      })
-      .catch(err => {
-        izitoast.error({
-          title: "error",
-          message: err.message
-        });
-      });
+  },
+  state: {
+    loading: false
   },
   view: vnode => (
     <div class="">
@@ -95,7 +86,7 @@ var Login = {
                   </small>
                 )}
               </div>
-              {vnode.state.loading && (
+              {Login.state.loading && (
                 <ons-progress-circular
                   class="white-text"
                   style="color: white"
@@ -105,8 +96,9 @@ var Login = {
               <button
                 class="button button--material w-100 mt-3"
                 type="submit"
-                disabled={vnode.state.loading}
+                disabled={Login.state.loading}
                 onclick={() => {
+                  // Login.state.loading = true;
                   console.log("errors");
                 }}
               >
