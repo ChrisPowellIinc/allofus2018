@@ -146,7 +146,7 @@ const Profile = {
                     console.log(value);
                     Auth.user.call_price = value;
                   })}
-                  value={Auth.user.call_price ? Auth.user.call_price : 0}
+                  value={Auth.user.call_price ? Auth.user.call_price / 100 : 0}
                   float
                 />
               </p>
