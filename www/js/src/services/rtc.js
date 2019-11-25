@@ -20,16 +20,18 @@ var RTCService = {
       iceTransportPolicy: "relay",
       config: {
         iceServers: [
-          {
-            url: "turn:numb.viagenie.ca",
-            username: "webrtc@live.com",
-            credential: "muazkh"
-          },
-          {
-            urls: "stun:stun.l.google.com:19302"
-            // username: "pasaseh@ether123.net",
-            // credential: "12345678"
-          }
+          { urls: "stun:stun.l.google.com:19302" },
+          { urls: "stun:global.stun.twilio.com:3478?transport=udp" }
+          // {
+          //   url: "turn:numb.viagenie.ca",
+          //   username: "webrtc@live.com",
+          //   credential: "muazkh"
+          // },
+          // {
+          //   urls: "stun:stun.l.google.com:19302"
+          //   // username: "pasaseh@ether123.net",
+          //   // credential: "12345678"
+          // }
         ]
       }
     });
@@ -99,7 +101,7 @@ var RTCService = {
   },
   call(user_email) {
     RTCService.recipient = user_email;
-    console.log("Requesting local stream");
+    // console.log("Requesting local stream");
     return navigator.mediaDevices
       .getUserMedia({
         audio: true,
@@ -108,18 +110,22 @@ var RTCService = {
         height: 720
       })
       .then(stream => {
-        RTCService.InitMedia(stream);
-        if (RTCService.recipient) {
-          SocketService.message({
-            type: "call",
-            recipient: RTCService.recipient
-          });
+        if (stream) {
+          RTCService.InitMedia(stream);
+          if (RTCService.recipient) {
+            SocketService.message({
+              type: "call",
+              recipient: RTCService.recipient
+            });
+          } else {
+            console.log("no recipient to call...");
+          }
         } else {
-          console.log("no recipient to call...");
+          console.error("No stream on this app");
         }
       })
       .catch(err => {
-        console.log(err);
+        console.error("Some error occured: ", err);
       });
   },
   // Answer call
@@ -180,6 +186,15 @@ var RTCService = {
     document.getElementById("remoteVideo").remove();
     if (RTCService.client.peer) {
       RTCService.client.peer.destroy();
+    }
+    console.log(RTCService.localStream);
+    if (RTCService.localStream) {
+      const tracks = RTCService.localStream.getTracks();
+      console.log("Tracks: ", tracks);
+      tracks.forEach(track => {
+        console.log("Stopping ", track);
+        track.stop();
+      });
     }
   }
 };
