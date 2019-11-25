@@ -11,7 +11,7 @@ const SocketService = {
       SocketService.conn = conn;
     };
     conn.onmessage = e => {
-      console.log("Message recieved: ", e.data);
+      // console.log("Message recieved: ", e.data);
       const data = JSON.parse(e.data);
       // Create a new event
       console.log(data.type, " event");
@@ -21,12 +21,25 @@ const SocketService = {
     };
     conn.onclose = e => {
       console.log("Connection closed", e);
+      // try to reconnect here
+      console.log(SocketService.conn);
+      SocketService.connect();
     };
   },
   message: data => {
     data.channel = "message";
     data.owner = Auth.user.email;
-    SocketService.conn.send(JSON.stringify(data));
+    console.log("Connection State: ", SocketService.conn.readyState);
+    if (
+      SocketService.conn &&
+      SocketService.conn.readyState === WebSocket.OPEN
+    ) {
+      SocketService.conn.send(JSON.stringify(data));
+    } else {
+      console.error("No Connection...");
+      ons.notification.alert("No connection");
+      console.log(SocketService.conn);
+    }
   }
 };
 
