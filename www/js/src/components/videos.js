@@ -4,6 +4,7 @@ import request from "services/request";
 import Footer from "components/homefooter";
 import RTCService from "services/rtc";
 import PaymentService from "services/payment";
+import SocketService from "../services/socket";
 
 const Call = {
   oncreate: vnode => {
@@ -93,7 +94,7 @@ var Videos = {
           // ons.notification.alert(`Hello ${name}`);
         })
         .catch(err => {
-          console.err(err);
+          console.error(err);
         });
     });
   },
@@ -187,12 +188,24 @@ var Videos = {
     });
   },
   call(user) {
-    console.log(user);
-    Videos.modal = document.querySelector("ons-modal");
-    Videos.modal.show();
-    PaymentService.Setup(stripe => {
-      Videos.CardTokenAndPay(stripe, user);
-    });
+    // check if socket is connected.
+    if (
+      SocketService.conn &&
+      SocketService.conn.readyState === WebSocket.OPEN
+    ) {
+      Videos.modal = document.querySelector("ons-modal");
+      Videos.modal.show();
+      PaymentService.Setup(stripe => {
+        Videos.CardTokenAndPay(stripe, user);
+      });
+      // Videos.state.page = "call";
+      // Videos.state.user = user;
+      // m.redraw();
+    } else {
+      console.log("No connection");
+      console.log(SocketService.conn);
+      console.log(SocketService.conn.readyState);
+    }
   },
   view: vnode => (
     <section>
