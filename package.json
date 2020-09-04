@@ -78,7 +78,7 @@
         "file-loader": "^1.1.6",
         "glob": "^7.1.2",
         "jquery-ujs": "^1.2.2",
-        "node-sass": "^4.9.2",
+        "node-sass": "^4.13.1",
         "npm-install-webpack-plugin": "^4.0.4",
         "optimize-css-assets-webpack-plugin": "^5.0.1",
         "path": "^0.12.7",
